@@ -1,0 +1,47 @@
+{
+  "name": "grrd's Tic Tac Toe",
+  "short_name": "TicTacToe",
+  "version": "1.0",
+  "description": "grrd’s Tic Tac Toe ist ein HTML5-Spiel, das offline funktioniert.",
+  "default_locale": "de",
+  "icons": [
+    {
+      "src": "../images/icon_32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "../images/icon_64.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "../images/icon_128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "../images/icon_256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "../images/icon_512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "../images/screenshots/svg.png",
+      "type": "image/png",
+      "sizes": "1280x800"
+    }
+  ],
+  "categories": ["games", "logic games", "casual games", "family games"],
+  "background_color": "#444",
+  "theme_color": "#444",
+  "display": "standalone",
+  "start_url": "../index.html",
+  "author": "Gerard Tyedmers"
+}

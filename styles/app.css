@@ -1,0 +1,156 @@
+html {
+    height: 100%;
+}
+
+body {
+    background: linear-gradient(#444, #222);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: auto;
+    width: calc(100vmin - 16px);
+}
+.grid-item {
+    border:  1px transparent;
+    border-radius: 2vmin;
+    box-shadow: 0 0 0.5vmin 2px #000;
+    background-image: linear-gradient(#333, #444 35%, #222 100%), linear-gradient(#bbb, #444 8%, #111 100%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    padding: 2px;
+    height: calc(33vmin - 18px);
+    margin: 5px;
+    cursor: pointer;
+}
+.grid-item:hover {
+    background-image: linear-gradient(#444, #555 35%, #333 100%), linear-gradient(#ccc, #555 8%, #222 100%);
+}
+.grid-item:active {
+    background-image: linear-gradient(#393939, #111 35%, #292929 100%), linear-gradient(#222, #111 92%, #888 100%);
+}
+.svg-xo {
+    animation: 1s xoFadeIn;
+    animation-fill-mode: forwards;
+}
+@keyframes xoFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+.svg-xo-dimmed {
+    animation: 1s xoDimm;
+    animation-fill-mode: forwards;
+}
+@keyframes xoDimm {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.4;
+    }
+}
+
+.popup {
+    display: block;
+    position:absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 123px;
+    border:  1px transparent;
+    border-radius: 15px;
+    box-shadow: 3px 3px 3vmin 3px #000;
+    background-image: linear-gradient(#333, #444 35%, #222 100%), linear-gradient(#bbb, #444 10%, #111 100%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    padding: 2px;
+    height: 200px;
+    width: 400px;
+    max-width: calc(100vw - 40px);
+    font-family: Arial, sans-serif;
+    font-size: large;
+    color: white;
+}
+.popup-init {
+    visibility: hidden;
+    opacity: 0;
+}
+.popup-show {
+    /*visibility: visible;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;*/
+    animation: 3s fadeIn;
+    animation-fill-mode: forwards;
+}
+.popup-hide {
+    animation: 1s fadeOut;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    66% {
+        opacity: 0;
+    }
+    100% {
+         visibility: visible;
+         opacity: 1;
+     }
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+.popup-head {
+    height: 50px;
+}
+.popup-body {
+    margin: 20px;
+}
+
+.button {
+    position:absolute;
+    bottom: 10px;
+    right: 10px;
+    border:  1px transparent;
+    border-radius: 10px;
+    box-shadow: 0 0 0.5vmin 2px #000;
+    text-shadow: 1px 1px 2px #500000;
+    background-image: linear-gradient(#de0139, #ff0142 35%, #830110 100%), linear-gradient(#ffbabc, #e33a33 8%, #55010a 100%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    padding: 2px;
+    height: 40px;
+    width: 100px;
+    margin: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+}
+.button:hover {
+    background-image: linear-gradient(#ee1149, #ff2162 35%, #931120 100%), linear-gradient(#ffcacc, #f34a43 8%, #65111a 100%);
+}
+.button:active {
+    background-image: linear-gradient(#830110, #ff0142 35%, #de0139 100%), linear-gradient(#55010a, #e33a33 92%, #ffbabc 100%);;
+}
+.button-span {
+    margin-top: 10px;
+}
+.button-span:active {
+    margin-top: 12px;
+}
+
+
