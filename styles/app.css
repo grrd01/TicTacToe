@@ -4,11 +4,20 @@ html {
 
 body {
     background: linear-gradient(#444, #222);
-    min-width: calc(100vw - 15px);
+    min-width: 100vw;
+    margin: 0;
     overflow-x: hidden;
     font-family: Arial, sans-serif;
     font-size: large;
     color: white;
+}
+
+.page {
+    width: 100vw;
+}
+
+.content {
+    margin: 5px;
 }
 
 #iGame {
@@ -50,10 +59,10 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: auto auto auto;
-    margin: auto;
-    width: calc(100vmin - 16px);
+    margin: 5px auto;
+    width: calc(100vmin - 10px);
 }
-.grid-item {
+.grid-item, .list-button {
     border:  1px transparent;
     border-radius: 2vmin;
     box-shadow: 0 0 0.5vmin 2px #000;
@@ -61,14 +70,16 @@ body {
     background-origin: border-box;
     background-clip: content-box, border-box;
     padding: 2px;
-    height: calc(33vmin - 18px);
     margin: 5px;
     cursor: pointer;
 }
-.grid-item:hover {
+.grid-item {
+    height: calc(33vmin - 18px);
+}
+.grid-item:hover, .list-button:hover {
     background-image: linear-gradient(#444, #555 35%, #333 100%), linear-gradient(#ccc, #555 8%, #222 100%);
 }
-.grid-item:active {
+.grid-item:active, .list-button:active {
     background-image: linear-gradient(#393939, #111 35%, #292929 100%), linear-gradient(#222, #111 92%, #888 100%);
 }
 .svg-xo {
@@ -192,18 +203,6 @@ body {
     margin-top: 12px;
 }
 
-.helper {
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-}
-
-.button-img {
-    margin: 20px;
-    vertical-align: middle;
-    max-height: calc(100% - 40px);
-}
-
 .iTitle1 {
     width: 30%;
 }
@@ -212,3 +211,76 @@ body {
 }
 
 
+@media (orientation: landscape) {
+    .list-button {
+        display: inline-block;
+        width: 20vw;
+        text-align: center;
+    }
+    .list-button > div {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .button-img {
+        max-width: calc(100% - 40px);
+        margin-top: 20px;
+    }
+}
+
+@media (orientation: portrait) {
+    .list-button {
+        /*width: calc(100% - 28px);*/
+    }
+    .list-button > div {
+        display: inline;
+    }
+    .button-img {
+        margin: 20px;
+        vertical-align: middle;
+        max-height: calc(100% - 40px);
+    }
+}
+
+
+
+
+
+
+/* Main styles */
+
+.text {
+    fill: none;
+    stroke-width: 3;
+    stroke-linejoin: round;
+    stroke-dasharray: 70 330;
+    stroke-dashoffset: 0;
+    -webkit-animation: stroke 6s infinite linear;
+    animation: stroke 6s infinite linear;
+    font: 3.8em/1 Open Sans, Impact;
+}
+.text:nth-child(5n + 1) {
+    stroke: #F2385A;
+    animation-delay: -1.2s;
+}
+.text:nth-child(5n + 2) {
+    stroke: #F5A503;
+    animation-delay: -2.4s;
+}
+.text:nth-child(5n + 3) {
+    stroke: #E9F1DF;
+    animation-delay: -3.6s;
+}
+.text:nth-child(5n + 4) {
+    stroke: #56D9CD;
+    animation-delay: -4.8s;
+}
+.text:nth-child(5n + 5) {
+    stroke: #3AA1BF;
+    animation-delay: -6s;
+}
+@keyframes stroke {
+    100% {
+        stroke-dashoffset: -400;
+    }
+}
+/* Other styles */

@@ -54,54 +54,19 @@
     }
 
     // Wohin spielen?
-    function fAI() {
-        let rHighScore = {nScore: -1, nRow: undefined, nCol: undefined};
-        // Wert der Felder für aktuellen Spieler ermitteln
-        let lScore = fAIscore();
-        lScore.forEach(function (lScoreRow, nIndexRow) {
-            lScoreRow.forEach(function (nScoreCol, nIndexCol) {
-                if(nScoreCol > rHighScore.nScore) {
-                    rHighScore.nScore = nScoreCol;
-                    rHighScore.nRow = nIndexRow;
-                    rHighScore.nCol = nIndexCol;
-                }
-            });
-        });
-        // Wert der Felder für Gegner ermitteln, dort spielen, falls höher als eigener Wert
-        nCurrentPlayer = 1 - nCurrentPlayer;
-        lScore = fAIscore();
-        nCurrentPlayer = 1 - nCurrentPlayer;
-        lScore.forEach(function (lScoreRow, nIndexRow) {
-            lScoreRow.forEach(function (nScoreCol, nIndexCol) {
-                if(nScoreCol > rHighScore.nScore) {
-                    rHighScore.nScore = nScoreCol;
-                    rHighScore.nRow = nIndexRow;
-                    rHighScore.nCol = nIndexCol;
-                }
-            });
-        });
-
-        if (lPlayers[nCurrentPlayer]=== "CPU") {
-            document.querySelectorAll("[data-row='" + rHighScore.nRow + "'][data-col='" + rHighScore.nCol + "']")[0].click();
-        }
-
-    }
-
-    // Wohin spielen?
     function fAIscore() {
-        let lScore = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
-        let lSet;
-        let nScore;
+        var lScore = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+        var lSet;
+        var nScore;
         const lDrei = [0, 1, 2];
-        let rHighScore = {nScore: 0, nRow: undefined, nCol: undefined};
 
         nScore = 0;
         lDrei.forEach(function (ignore, nIndex3) {
             // horizontal -
             lSet = [lGame[nIndex3][0], lGame[nIndex3][1], lGame[nIndex3][2]];
-            if (lSet.filter(x => x === (1 - nCurrentPlayer)).length === 0) {
+            if (lSet.filter((x) => x === (1 - nCurrentPlayer)).length === 0) {
                 // falls kein feld dem gegner gehört, 3pt pro eigenes feld, 1pt pro leeres feld
-                nScore = lSet.filter(x => x === undefined).length + Math.pow(lSet.filter(x => x === nCurrentPlayer).length * 3, 2);
+                nScore = lSet.filter((x) => x === undefined).length + Math.pow(lSet.filter((x) => x === nCurrentPlayer).length * 3, 2);
                 lScore[nIndex3][0] += nScore;
                 lScore[nIndex3][1] += nScore;
                 lScore[nIndex3][2] += nScore;
@@ -109,10 +74,10 @@
         });
         lDrei.forEach(function (ignore, nIndex3) {
             // vertikal   |
-            var lSet = [lGame[0][nIndex3], lGame[1][nIndex3], lGame[2][nIndex3]];
-            if (lSet.filter(x => x === (1 - nCurrentPlayer)).length === 0) {
+            lSet = [lGame[0][nIndex3], lGame[1][nIndex3], lGame[2][nIndex3]];
+            if (lSet.filter((x) => x === (1 - nCurrentPlayer)).length === 0) {
                 // falls kein feld dem gegner gehört, 3pt pro eigenes feld, 1pt pro leeres feld
-                nScore = lSet.filter(x => x === undefined).length + Math.pow(lSet.filter(x => x === nCurrentPlayer).length * 3, 2);
+                nScore = lSet.filter((x) => x === undefined).length + Math.pow(lSet.filter((x) => x === nCurrentPlayer).length * 3, 2);
                 lScore[0][nIndex3] += nScore;
                 lScore[1][nIndex3] += nScore;
                 lScore[2][nIndex3] += nScore;
@@ -120,18 +85,18 @@
         });
         // diagonal   \
         lSet = [lGame[0][0], lGame[1][1], lGame[2][2]];
-        if (lSet.filter(x => x === (1 - nCurrentPlayer)).length === 0) {
+        if (lSet.filter((x) => x === (1 - nCurrentPlayer)).length === 0) {
             // falls kein feld dem gegner gehört, 3pt pro eigenes feld, 1pt pro leeres feld
-            nScore = lSet.filter(x => x === undefined).length + Math.pow(lSet.filter(x => x === nCurrentPlayer).length * 3, 2);
+            nScore = lSet.filter((x) => x === undefined).length + Math.pow(lSet.filter((x) => x === nCurrentPlayer).length * 3, 2);
             lScore[0][0] += nScore;
             lScore[1][1] += nScore;
             lScore[2][2] += nScore;
         }
         // diagonal   /
         lSet = [lGame[0][2], lGame[1][1], lGame[2][0]];
-        if (lSet.filter(x => x === (1 - nCurrentPlayer)).length === 0) {
+        if (lSet.filter((x) => x === (1 - nCurrentPlayer)).length === 0) {
             // falls kein feld dem gegner gehört, 3pt pro eigenes feld, 1pt pro leeres feld
-            nScore = lSet.filter(x => x === undefined).length + Math.pow(lSet.filter(x => x === nCurrentPlayer).length * 3, 2);
+            nScore = lSet.filter((x) => x === undefined).length + Math.pow(lSet.filter((x) => x === nCurrentPlayer).length * 3, 2);
             lScore[0][2] += nScore;
             lScore[1][1] += nScore;
             lScore[2][0] += nScore;
@@ -147,6 +112,40 @@
         });
         console.log(lScore);
         return lScore;
+    }
+
+    // Wohin spielen?
+    function fAI() {
+        var rHighScore = {nScore: -1, nRow: undefined, nCol: undefined};
+        // Wert der Felder für aktuellen Spieler ermitteln
+        var lScore = fAIscore();
+        lScore.forEach(function (lScoreRow, nIndexRow) {
+            lScoreRow.forEach(function (nScoreCol, nIndexCol) {
+                if (nScoreCol > rHighScore.nScore) {
+                    rHighScore.nScore = nScoreCol;
+                    rHighScore.nRow = nIndexRow;
+                    rHighScore.nCol = nIndexCol;
+                }
+            });
+        });
+        // Wert der Felder für Gegner ermitteln, dort spielen, falls höher als eigener Wert
+        nCurrentPlayer = 1 - nCurrentPlayer;
+        lScore = fAIscore();
+        nCurrentPlayer = 1 - nCurrentPlayer;
+        lScore.forEach(function (lScoreRow, nIndexRow) {
+            lScoreRow.forEach(function (nScoreCol, nIndexCol) {
+                if (nScoreCol > rHighScore.nScore) {
+                    rHighScore.nScore = nScoreCol;
+                    rHighScore.nRow = nIndexRow;
+                    rHighScore.nCol = nIndexCol;
+                }
+            });
+        });
+
+        if (lPlayers[nCurrentPlayer] === "CPU") {
+            document.querySelectorAll("[data-row='" + rHighScore.nRow + "'][data-col='" + rHighScore.nCol + "']")[0].click();
+        }
+
     }
 
     // hat jemand gewonnen? endet das spiel unentschieden?
@@ -178,6 +177,7 @@
 
     // Click auf ein Panel
     function fClickPanel(event) {
+        var lImages = ["x.svg", "o.svg"];
         if (event.target.nodeName === "DIV") {
             var nRow = event.target.getAttribute("data-row");
             var nCol = event.target.getAttribute("data-col");
@@ -186,7 +186,7 @@
                 lGame[nRow][nCol] = nCurrentPlayer;
                 eImg = document.createElement("img");
                 eImg.setAttribute("class", "svg-xo");
-                eImg.setAttribute("src", "images/" + ["x.svg", "o.svg"][nCurrentPlayer]);
+                eImg.setAttribute("src", "images/" + lImages[nCurrentPlayer]);
                 event.target.appendChild(eImg);
                 fCheckGame();
             }
@@ -198,6 +198,7 @@
         lPlayers[1] = event.target.getAttribute("data-payer2");
         document.getElementById("iTitle").classList.add("swipe-out");
         document.getElementById("iGame").classList.add("swipe-in");
+        fAI();
     }
 
     // Spiel zurücksetzen
@@ -250,6 +251,5 @@
     }
 
     fInit();
-    fAI();
 
 }());
