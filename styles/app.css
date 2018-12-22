@@ -4,6 +4,47 @@ html {
 
 body {
     background: linear-gradient(#444, #222);
+    min-width: calc(100vw - 15px);
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    font-size: large;
+    color: white;
+}
+
+#iGame {
+    position: absolute;
+    top: 0;
+    transform: translateX(100vw);
+}
+
+.swipe-in {
+     animation-name: swipe-in;
+     animation-fill-mode: forwards;
+     animation-duration: 0.7s;
+ }
+
+@keyframes swipe-in {
+    from {
+        transform: translateX(100vw);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.swipe-out {
+    animation-name: swipe-out;
+    animation-fill-mode: forwards;
+    animation-duration: 0.7s;
+}
+
+@keyframes swipe-out {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100vw);
+    }
 }
 
 .grid-container {
@@ -73,9 +114,6 @@ body {
     height: 200px;
     width: 400px;
     max-width: calc(100vw - 40px);
-    font-family: Arial, sans-serif;
-    font-size: large;
-    color: white;
 }
 .popup-init {
     visibility: hidden;
@@ -116,6 +154,7 @@ body {
 }
 .popup-head {
     height: 50px;
+    margin: 10px;
 }
 .popup-body {
     margin: 20px;
@@ -151,6 +190,25 @@ body {
 }
 .button-span:active {
     margin-top: 12px;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.button-img {
+    margin: 20px;
+    vertical-align: middle;
+    max-height: calc(100% - 40px);
+}
+
+.iTitle1 {
+    width: 30%;
+}
+.iTitle2 {
+    width: 70%;
 }
 
 

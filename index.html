@@ -16,16 +16,29 @@
     <link rel="stylesheet" href="styles/app.css">
 </head>
 <body>
-    <div class="grid-container"></div>
-    <div class="popup popup-init">
-        <div class="popup-head"></div>
-        <div class="popup-body">
-            <div class="popup-content"></div>
-            <div class="popup-content"></div>
+    <div class="page" id="iTitle">
+        <img class="iTitle1" src="images/title1.png" alt="grrd's"><img class="iTitle2" src="images/title2.png" alt="Tic Tac Toe">
+        <div id="i2Players" class="grid-item" data-payer2="human">
+            <span class="helper"></span><img class="button-img" src="images/2player.svg" alt="2 Players">&nbsp;2 Players
         </div>
-        <div class="popup-footer">
-            <div id="iOK" class="button">
-                <div class="button-span">OK</div>
+        <div id="iHard" class="grid-item" data-payer2="CPU">
+            <span class="helper"></span><img class="button-img" src="images/hard.svg" alt="Hard">&nbsp;Hard
+        </div>
+    </div>
+    <div class="page" id="iGame">
+        <div class="grid-container"></div>
+        <div class="popup popup-init">
+            <div class="popup-head">
+                <img class="iTitle1" src="images/title1.png" alt="grrd's"><img class="iTitle2" src="images/title2.png" alt="Tic Tac Toe">
+            </div>
+            <div class="popup-body">
+                <div class="popup-content"></div>
+                <div class="popup-content"></div>
+            </div>
+            <div class="popup-footer">
+                <div id="iOK" class="button">
+                    <div class="button-span">OK</div>
+                </div>
             </div>
         </div>
     </div>

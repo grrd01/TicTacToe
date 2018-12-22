@@ -1,0 +1,20 @@
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="108px" height="71px" viewBox="-50 -5 257 170" stroke="white" stroke-width="10"  fill="none" >
+  <g transform="translate(-52 8)">
+    <circle cx="80" cy="80" r="70"    />
+    <path d="M27 32 C34 52, 120 75, 148 60"   />
+    <path d="M13 60 C10 90, 130 120, 148 95"   />
+    <path d="M16 106 C32 125, 100 145, 128 130"   />
+
+    <path d="M100 13 C34 3, 10 130, 65 148"   />
+    <path d="M100 13 C70 33, 45 118, 65 148"   />
+    <path d="M100 13 C113 35, 105 125, 65 148"   />
+    <path d="M100 13 C160 48, 120 160, 65 148"   />
+  </g>
+  <g transform="scale(-1,1) translate(-230 -3)">
+    <ellipse cx="75" cy="72" rx="47" ry="59" transform="rotate(-5)"   />
+    <ellipse cx="70" cy="56" rx="7" ry="11" stroke="none" fill="white" transform="rotate(-2)"/>
+    <ellipse cx="93" cy="56" rx="7" ry="11" stroke="none" fill="white" transform="rotate(-2)"/>
+    <path stroke-linecap="round" d="M62 87 C70 95, 96 95, 104 86"   />
+    <path stroke-linecap="round" d="M35 155 C70 110, 96 120, 130 145"   />
+  </g>
+</svg>
