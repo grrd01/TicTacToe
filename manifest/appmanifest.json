@@ -2,8 +2,8 @@
   "name": "grrd's Tic Tac Toe",
   "short_name": "TicTacToe",
   "version": "1.0",
-  "description": "grrd’s Tic Tac Toe ist ein HTML5-Spiel, das offline funktioniert.",
-  "default_locale": "de",
+  "description": "grrd’s Tic Tac Toe is a HTML5 Game that works offline. You can play against the computer or a second player.",
+  "default_locale": "en",
   "icons": [
     {
       "src": "../images/icon_32.png",

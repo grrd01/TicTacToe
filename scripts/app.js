@@ -117,39 +117,40 @@
     // Wohin spielen?
     function fAI() {
         var rHighScore = {nScore: -1, nRow: undefined, nCol: undefined};
+        var lHighScore = [];
         // Wert der Felder für aktuellen Spieler ermitteln
         var lScore = fAIscore();
-        lScore.forEach(function (lScoreRow, nIndexRow) {
-            lScoreRow.forEach(function (nScoreCol, nIndexCol) {
-                if (nScoreCol > rHighScore.nScore) {
-                    rHighScore.nScore = nScoreCol;
-                    rHighScore.nRow = nIndexRow;
-                    rHighScore.nCol = nIndexCol;
-                }
-            });
-        });
         // Wert der Felder für Gegner ermitteln, dort spielen, falls höher als eigener Wert
         nCurrentPlayer = 1 - nCurrentPlayer;
-        lScore = fAIscore();
+        var lScoreOpponent = fAIscore();
         nCurrentPlayer = 1 - nCurrentPlayer;
-        lScore.forEach(function (lScoreRow, nIndexRow) {
-            lScoreRow.forEach(function (nScoreCol, nIndexCol) {
-                if (nScoreCol > rHighScore.nScore) {
-                    rHighScore.nScore = nScoreCol;
+        lScoreOpponent.forEach(function (lScoreOpponentRow, nIndexRow) {
+            lScoreOpponentRow.forEach(function (nScoreOpponentCol, nIndexCol) {
+                if (nScoreOpponentCol !== undefined) {
+                    if (nScoreOpponentCol > lScore[nIndexRow][nIndexCol]) {
+                        rHighScore.nScore = nScoreOpponentCol;
+                    } else {
+                        rHighScore.nScore = lScore[nIndexRow][nIndexCol];
+                    }
                     rHighScore.nRow = nIndexRow;
                     rHighScore.nCol = nIndexCol;
+                    lHighScore.push({nScore: rHighScore.nScore, nRow: nIndexRow, nCol: nIndexCol});
                 }
             });
         });
-
-        if (lPlayers[nCurrentPlayer] === "CPU") {
-            document.querySelectorAll("[data-row='" + rHighScore.nRow + "'][data-col='" + rHighScore.nCol + "']")[0].click();
+        lHighScore.sort(function(a, b) {
+            return b.nScore - a.nScore;
+        });
+        console.log(lHighScore);
+        if (lPlayers[nCurrentPlayer] === "hard") {
+            document.querySelectorAll("[data-row='" + lHighScore[0].nRow + "'][data-col='" + lHighScore[0].nCol + "']")[0].click();
         }
 
     }
 
     // hat jemand gewonnen? endet das spiel unentschieden?
     function fCheckGame() {
+        var popupScore = document.getElementById("iPopupScore");
         if (fCheckGewonnen()) {
             lAnzGewonnen[nCurrentPlayer] += 1;
             Array.from(document.getElementsByClassName("svg-xo")).forEach(function (rSVG) {
@@ -158,17 +159,17 @@
             Array.from(lGewonnen).forEach(function (rGewonnen) {
                 document.querySelectorAll("[data-row='" + rGewonnen[0] + "'][data-col='" + rGewonnen[1] + "'] > img")[0].classList.remove("svg-xo-dimmed");
             });
-            document.getElementsByClassName("popup-content")[0].innerText = "Spieler " + (nCurrentPlayer + 1) + " hat gewonnen!";
-            document.getElementsByClassName("popup-content")[1].innerText = "Spielstand: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
-            document.getElementsByClassName("popup")[0].classList.remove("popup-init");
-            document.getElementsByClassName("popup")[0].classList.remove("popup-hide");
-            document.getElementsByClassName("popup")[0].classList.add("popup-show");
+            popupScore.getElementsByClassName("popup-content")[0].innerText = "Player " + (nCurrentPlayer + 1) + " has won!";
+            popupScore.getElementsByClassName("popup-content")[1].innerText = "Score: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
+            popupScore.classList.remove("popup-init");
+            popupScore.classList.remove("popup-hide");
+            popupScore.classList.add("popup-show");
         } else if (lGame.findIndex((x) => x.includes(undefined)) < 0) {
-            document.getElementsByClassName("popup-content")[0].innerText = "Dieses Spiel endet unentschieden.";
-            document.getElementsByClassName("popup-content")[1].innerText = "Spielstand: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
-            document.getElementsByClassName("popup")[0].classList.remove("popup-init");
-            document.getElementsByClassName("popup")[0].classList.remove("popup-hide");
-            document.getElementsByClassName("popup")[0].classList.add("popup-show");
+            document.getElementsByClassName("popup-content")[0].innerText = "This game ends in a draw.";
+            document.getElementsByClassName("popup-content")[1].innerText = "Score: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
+            popupScore.classList.remove("popup-init");
+            popupScore.classList.remove("popup-hide");
+            popupScore.classList.add("popup-show");
         } else {
             nCurrentPlayer = 1 - nCurrentPlayer;
             fAI();
@@ -213,8 +214,19 @@
                 lGame[nIndexRow][nIndexCol] = undefined;
             });
         });
-        document.getElementsByClassName("popup")[0].classList.remove("popup-show");
-        document.getElementsByClassName("popup")[0].classList.add("popup-hide");
+        document.getElementById("iPopupScore").classList.remove("popup-show");
+        document.getElementById("iPopupScore").classList.add("popup-hide");
+    }
+
+    // Popup Info
+    function fShowPopupInfo() {
+        document.getElementById("iPopupInfo").classList.remove("popup-init");
+        document.getElementById("iPopupInfo").classList.remove("popup-hide");
+        document.getElementById("iPopupInfo").classList.add("popup-show");
+    }
+    function fHidePopupInfo() {
+        document.getElementById("iPopupInfo").classList.remove("popup-show");
+        document.getElementById("iPopupInfo").classList.add("popup-hide");
     }
 
     function fInit() {
@@ -242,6 +254,8 @@
         });
 
         // Click-Handler auf die Buttons & Panels legen
+        document.getElementById("iInfo").addEventListener("click", fShowPopupInfo);
+        document.getElementById("iInfoClose").addEventListener("click", fHidePopupInfo);
         document.getElementById("i2Players").addEventListener("click", fStartGame);
         document.getElementById("iHard").addEventListener("click", fStartGame);
         Array.from(lPanel).forEach(function (rPanel) {
