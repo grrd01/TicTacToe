@@ -165,8 +165,8 @@
             popupScore.classList.remove("popup-hide");
             popupScore.classList.add("popup-show");
         } else if (lGame.findIndex((x) => x.includes(undefined)) < 0) {
-            document.getElementsByClassName("popup-content")[0].innerText = "This game ends in a draw.";
-            document.getElementsByClassName("popup-content")[1].innerText = "Score: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
+            popupScore.getElementsByClassName("popup-content")[0].innerText = "This game ends in a draw.";
+            popupScore.getElementsByClassName("popup-content")[1].innerText = "Score: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
             popupScore.classList.remove("popup-init");
             popupScore.classList.remove("popup-hide");
             popupScore.classList.add("popup-show");
