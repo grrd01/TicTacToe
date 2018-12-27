@@ -11,6 +11,7 @@ body {
     font-family: Arial, sans-serif;
     font-size: large;
     color: white;
+    text-shadow: 0 1px #000;
 }
 
 .page {
@@ -239,8 +240,8 @@ body {
 }
 #iPopupInfo {
     top: 20px;
-    height: 85%;
-    overflow-y: scroll;
+    max-height: calc(100% - 30px);
+    overflow-y: auto;
 }
 
 .button {
@@ -315,7 +316,16 @@ a:active {
 .w60 {
     width: 60px;
 }
-
+.w25 {
+    width: calc(25% - 4px);
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+#tLinks tr {
+    height: 65px;
+}
 
 @media (orientation: landscape) {
     .list-button {

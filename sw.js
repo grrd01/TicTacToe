@@ -23,7 +23,11 @@ var urlsToCache = [
     "images/mail.svg",
     "images/medium.svg",
     "images/o.svg",
-    "images.puzzle.svg",
+    "images/puzzle.svg",
+    "images/ttt1.svg",
+    "images/ttt2.svg",
+    "images/ttt3.svg",
+    "images/ttt4.svg",
     "images/x.svg",
     "scripts/app.js",
     "styles/app.css"

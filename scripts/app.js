@@ -179,7 +179,7 @@
         var popupScore = document.getElementById("iPopupScore");
         if (fCheckGewonnen()) {
             lAnzGewonnen[nCurrentPlayer] += 1;
-            fSetMessage(nCurrentPlayer," wins");
+            fSetMessage(nCurrentPlayer, " wins");
             Array.from(document.getElementsByClassName("svg-xo")).forEach(function (rSVG) {
                 rSVG.classList.add("svg-xo-dimmed");
             });
@@ -192,7 +192,7 @@
             popupScore.classList.remove("popup-hide");
             popupScore.classList.add("popup-show-slow");
         } else if (lGame.findIndex((x) => x.includes(undefined)) < 0) {
-            fSetMessage(undefined,"Draw");
+            fSetMessage(undefined, "Draw");
             popupScore.getElementsByClassName("popup-content")[0].innerText = "This game ends in a draw.";
             popupScore.getElementsByClassName("popup-content")[1].innerText = "Score: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
             popupScore.classList.remove("popup-init");
@@ -200,7 +200,7 @@
             popupScore.classList.add("popup-show-slow");
         } else {
             nCurrentPlayer = 1 - nCurrentPlayer;
-            fSetMessage(nCurrentPlayer," plays");
+            fSetMessage(nCurrentPlayer, " plays");
             fAI();
         }
     }
@@ -222,16 +222,6 @@
         }
     }
 
-    // zu Spielpanel wechseln
-    function fStartGame() {
-        lPlayers[1] = event.target.getAttribute("data-payer2");
-        document.getElementById("iTitle").classList.remove("swipe-out-right");
-        document.getElementById("iGame").classList.remove("swipe-in-left");
-        document.getElementById("iTitle").classList.add("swipe-out");
-        document.getElementById("iGame").classList.add("swipe-in");
-        fAI();
-    }
-
     // Spiel zurücksetzen
     function fResetGame() {
         Array.from(lPanel).forEach(function (rPanel) {
@@ -247,8 +237,20 @@
         document.getElementById("iPopupScore").classList.remove("popup-show-slow");
         document.getElementById("iPopupScore").classList.add("popup-hide");
         nCurrentPlayer = 0;
-        fSetMessage(nCurrentPlayer," begins");
+        fSetMessage(nCurrentPlayer, " begins");
     }
+
+    // zu Spielpanel wechseln
+    function fStartGame() {
+        lPlayers[1] = event.target.getAttribute("data-payer2");
+        document.getElementById("iTitle").classList.remove("swipe-out-right");
+        document.getElementById("iGame").classList.remove("swipe-in-left");
+        document.getElementById("iTitle").classList.add("swipe-out");
+        document.getElementById("iGame").classList.add("swipe-in");
+        fResetGame();
+        fAI();
+    }
+
     // Spiel verlassen
     function fQuitGame() {
         fResetGame();
@@ -272,7 +274,7 @@
 
     function fInit() {
         // ServiceWorker initialisieren
-        /*
+
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function () {
                 navigator.serviceWorker.register("sw.js").then(function (registration) {
@@ -282,7 +284,7 @@
                 });
             });
         }
-        */
+
         // Spielfeld mit Panels füllen
         lGame.forEach(function (rRow, nIndexRow) {
             rRow.forEach(function (ignore, nIndexCol) {
