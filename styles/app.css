@@ -368,7 +368,7 @@ table {
 
 /* Main styles */
 
-#title1 {
+.title1 {
     stroke: #abb;
     fill: none;
     stroke-width: 3px;
