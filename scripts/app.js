@@ -17,12 +17,13 @@
 
     // HTML-Elemente
     const lPanel = document.getElementsByClassName("grid-item");
-    const lImages = ["x.svg", "o.svg"];
     var eDiv;
     var eImg;
 
     // aktueller Spieler
     var nCurrentPlayer = 0;
+    var lPlayers = ["human", "human"];
+    var lImages = ["x.svg", "o.svg"];
     var lGewonnen;
     var lAnzGewonnen = [0, 0];
 
@@ -53,29 +54,154 @@
         return bGewonnen;
     }
 
+    // Wohin spielen?
+    function fAIscore() {
+        var lScore = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+        var lSet;
+        var nScore;
+        const lDrei = [0, 1, 2];
+
+        nScore = 0;
+        lDrei.forEach(function (ignore, nIndex3) {
+            // horizontal -
+            lSet = [lGame[nIndex3][0], lGame[nIndex3][1], lGame[nIndex3][2]];
+            if (lSet.filter((x) => x === (1 - nCurrentPlayer)).length === 0) {
+                // falls kein feld dem gegner gehört, 3pt pro eigenes feld, 1pt pro leeres feld
+                nScore = lSet.filter((x) => x === undefined).length + Math.pow(lSet.filter((x) => x === nCurrentPlayer).length * 3, 2);
+                lScore[nIndex3][0] += nScore;
+                lScore[nIndex3][1] += nScore;
+                lScore[nIndex3][2] += nScore;
+            }
+        });
+        lDrei.forEach(function (ignore, nIndex3) {
+            // vertikal   |
+            lSet = [lGame[0][nIndex3], lGame[1][nIndex3], lGame[2][nIndex3]];
+            if (lSet.filter((x) => x === (1 - nCurrentPlayer)).length === 0) {
+                // falls kein feld dem gegner gehört, 3pt pro eigenes feld, 1pt pro leeres feld
+                nScore = lSet.filter((x) => x === undefined).length + Math.pow(lSet.filter((x) => x === nCurrentPlayer).length * 3, 2);
+                lScore[0][nIndex3] += nScore;
+                lScore[1][nIndex3] += nScore;
+                lScore[2][nIndex3] += nScore;
+            }
+        });
+        // diagonal   \
+        lSet = [lGame[0][0], lGame[1][1], lGame[2][2]];
+        if (lSet.filter((x) => x === (1 - nCurrentPlayer)).length === 0) {
+            // falls kein feld dem gegner gehört, 3pt pro eigenes feld, 1pt pro leeres feld
+            nScore = lSet.filter((x) => x === undefined).length + Math.pow(lSet.filter((x) => x === nCurrentPlayer).length * 3, 2);
+            lScore[0][0] += nScore;
+            lScore[1][1] += nScore;
+            lScore[2][2] += nScore;
+        }
+        // diagonal   /
+        lSet = [lGame[0][2], lGame[1][1], lGame[2][0]];
+        if (lSet.filter((x) => x === (1 - nCurrentPlayer)).length === 0) {
+            // falls kein feld dem gegner gehört, 3pt pro eigenes feld, 1pt pro leeres feld
+            nScore = lSet.filter((x) => x === undefined).length + Math.pow(lSet.filter((x) => x === nCurrentPlayer).length * 3, 2);
+            lScore[0][2] += nScore;
+            lScore[1][1] += nScore;
+            lScore[2][0] += nScore;
+        }
+        // besetzte felder sperren
+        lGame.forEach(function (rRow, nIndexRow) {
+            rRow.forEach(function (ignore, nIndexCol) {
+                // gehört das Feld dem Spieler? wenn nein abbrechen
+                if (lGame[nIndexRow][nIndexCol] !== undefined) {
+                    lScore[nIndexRow][nIndexCol] = undefined;
+                }
+            });
+        });
+        console.log(lScore);
+        return lScore;
+    }
+
+    // Wohin spielen?
+    function fAI() {
+        var rHighScore = {nScore: -1, nRow: undefined, nCol: undefined};
+        var lHighScore = [];
+        var nRandom;
+        // Wert der Felder für aktuellen Spieler ermitteln
+        var lScore = fAIscore();
+        // Wert der Felder für Gegner ermitteln, dort spielen, falls höher als eigener Wert
+        nCurrentPlayer = 1 - nCurrentPlayer;
+        var lScoreOpponent = fAIscore();
+        nCurrentPlayer = 1 - nCurrentPlayer;
+        lScoreOpponent.forEach(function (lScoreOpponentRow, nIndexRow) {
+            lScoreOpponentRow.forEach(function (nScoreOpponentCol, nIndexCol) {
+                if (nScoreOpponentCol !== undefined) {
+                    if (nScoreOpponentCol > lScore[nIndexRow][nIndexCol]) {
+                        rHighScore.nScore = nScoreOpponentCol;
+                    } else {
+                        rHighScore.nScore = lScore[nIndexRow][nIndexCol];
+                    }
+                    rHighScore.nRow = nIndexRow;
+                    rHighScore.nCol = nIndexCol;
+                    lHighScore.push({nScore: rHighScore.nScore, nRow: nIndexRow, nCol: nIndexCol});
+                }
+            });
+        });
+        lHighScore.sort(function (a, b) {
+            return b.nScore - a.nScore;
+        });
+        console.log(lHighScore);
+        if (lPlayers[nCurrentPlayer] === "easy") {
+            nRandom = Math.floor(Math.random() * 3);
+            document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
+        }
+        if (lPlayers[nCurrentPlayer] === "medium") {
+            nRandom = Math.floor(Math.random() * 2);
+            document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
+        }
+        if (lPlayers[nCurrentPlayer] === "hard") {
+            document.querySelectorAll("[data-row='" + lHighScore[0].nRow + "'][data-col='" + lHighScore[0].nCol + "']")[0].click();
+        }
+
+    }
+
+    // Nachricht über Spiel-Grid setzen
+    function fSetMessage(nPlayer, cMsg) {
+        var eMessage = document.getElementById("iMessage");
+        while (eMessage.firstChild) {
+            eMessage.removeChild(eMessage.firstChild);
+        }
+        if (nPlayer !== undefined) {
+            eImg = document.createElement("img");
+            eImg.setAttribute("src", "images/" + lImages[nPlayer]);
+            eImg.setAttribute("class", "text-img");
+            eMessage.appendChild(eImg);
+        }
+        eMessage.innerHTML = eMessage.innerHTML + cMsg;
+    }
+
+
     // hat jemand gewonnen? endet das spiel unentschieden?
     function fCheckGame() {
+        var popupScore = document.getElementById("iPopupScore");
         if (fCheckGewonnen()) {
             lAnzGewonnen[nCurrentPlayer] += 1;
+            fSetMessage(nCurrentPlayer, " wins");
             Array.from(document.getElementsByClassName("svg-xo")).forEach(function (rSVG) {
                 rSVG.classList.add("svg-xo-dimmed");
             });
             Array.from(lGewonnen).forEach(function (rGewonnen) {
                 document.querySelectorAll("[data-row='" + rGewonnen[0] + "'][data-col='" + rGewonnen[1] + "'] > img")[0].classList.remove("svg-xo-dimmed");
             });
-            document.getElementsByClassName("popup-content")[0].innerText = "Spieler " + (nCurrentPlayer + 1) + " hat gewonnen!";
-            document.getElementsByClassName("popup-content")[1].innerText = "Spieler 1: " + lAnzGewonnen[0] + " - Spieler 2: " + lAnzGewonnen[1];
-            document.getElementsByClassName("popup")[0].classList.remove("popup-init");
-            document.getElementsByClassName("popup")[0].classList.remove("popup-hide");
-            document.getElementsByClassName("popup")[0].classList.add("popup-show");
+            popupScore.getElementsByClassName("popup-content")[0].innerText = "Player " + (nCurrentPlayer + 1) + " has won!";
+            popupScore.getElementsByClassName("popup-content")[1].innerText = "Score: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
+            popupScore.classList.remove("popup-init");
+            popupScore.classList.remove("popup-hide");
+            popupScore.classList.add("popup-show-slow");
         } else if (lGame.findIndex((x) => x.includes(undefined)) < 0) {
-            document.getElementsByClassName("popup-content")[0].innerText = "Dieses Spiel endet unentschieden.";
-            document.getElementsByClassName("popup-content")[1].innerText = "Spieler 1: " + lAnzGewonnen[0] + " - Spieler 2: " + lAnzGewonnen[1];
-            document.getElementsByClassName("popup")[0].classList.remove("popup-init");
-            document.getElementsByClassName("popup")[0].classList.remove("popup-hide");
-            document.getElementsByClassName("popup")[0].classList.add("popup-show");
+            fSetMessage(undefined, "Draw");
+            popupScore.getElementsByClassName("popup-content")[0].innerText = "This game ends in a draw.";
+            popupScore.getElementsByClassName("popup-content")[1].innerText = "Score: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
+            popupScore.classList.remove("popup-init");
+            popupScore.classList.remove("popup-hide");
+            popupScore.classList.add("popup-show-slow");
         } else {
             nCurrentPlayer = 1 - nCurrentPlayer;
+            fSetMessage(nCurrentPlayer, " plays");
+            fAI();
         }
     }
 
@@ -108,12 +234,47 @@
                 lGame[nIndexRow][nIndexCol] = undefined;
             });
         });
-        document.getElementsByClassName("popup")[0].classList.remove("popup-show");
-        document.getElementsByClassName("popup")[0].classList.add("popup-hide");
+        document.getElementById("iPopupScore").classList.remove("popup-show-slow");
+        document.getElementById("iPopupScore").classList.add("popup-hide");
+        nCurrentPlayer = 0;
+        fSetMessage(nCurrentPlayer, " begins");
+    }
+
+    // zu Spielpanel wechseln
+    function fStartGame() {
+        lPlayers[1] = event.target.getAttribute("data-payer2");
+        document.getElementById("iTitle").classList.remove("swipe-out-right");
+        document.getElementById("iGame").classList.remove("swipe-in-left");
+        document.getElementById("iTitle").classList.add("swipe-out");
+        document.getElementById("iGame").classList.add("swipe-in");
+        fResetGame();
+        fAI();
+    }
+
+    // Spiel verlassen
+    function fQuitGame() {
+        fResetGame();
+        lAnzGewonnen = [0, 0];
+        document.getElementById("iTitle").classList.remove("swipe-out");
+        document.getElementById("iGame").classList.remove("swipe-in");
+        document.getElementById("iTitle").classList.add("swipe-out-right");
+        document.getElementById("iGame").classList.add("swipe-in-left");
+    }
+
+    // Popup Info
+    function fShowPopupInfo() {
+        document.getElementById("iPopupInfo").classList.remove("popup-init");
+        document.getElementById("iPopupInfo").classList.remove("popup-hide");
+        document.getElementById("iPopupInfo").classList.add("popup-show");
+    }
+    function fHidePopupInfo() {
+        document.getElementById("iPopupInfo").classList.remove("popup-show");
+        document.getElementById("iPopupInfo").classList.add("popup-hide");
     }
 
     function fInit() {
         // ServiceWorker initialisieren
+
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function () {
                 navigator.serviceWorker.register("sw.js").then(function (registration) {
@@ -123,6 +284,7 @@
                 });
             });
         }
+
         // Spielfeld mit Panels füllen
         lGame.forEach(function (rRow, nIndexRow) {
             rRow.forEach(function (ignore, nIndexCol) {
@@ -134,7 +296,13 @@
             });
         });
 
-        // Click-Handler auf die Panels legen
+        // Click-Handler auf die Buttons & Panels legen
+        document.getElementById("iInfo").addEventListener("click", fShowPopupInfo);
+        document.getElementById("iInfoClose").addEventListener("click", fHidePopupInfo);
+        Array.from(document.getElementsByClassName("list-button")).forEach(function (rButton) {
+            rButton.addEventListener("click", fStartGame);
+        });
+        document.getElementById("iClose").addEventListener("click", fQuitGame);
         Array.from(lPanel).forEach(function (rPanel) {
             rPanel.addEventListener("click", fClickPanel);
         });

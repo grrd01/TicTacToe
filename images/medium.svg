@@ -1,0 +1,17 @@
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="108px" height="71px" viewBox="-50 -5 257 170" stroke="white" stroke-width="10"  fill="none" >
+  <g transform="scale(0.97,0.97) translate(-52 5)">
+    <rect x="6" y="15" rx="10" ry="10" width="140" height="115" transform="skewY(-1) rotate(-4)"/>
+    <rect x="26" y="32" rx="10" ry="10" width="100" height="81" transform="skewY(-1) rotate(-4)"/>
+    <ellipse cx="62" cy="58" rx="7" ry="11" transform="rotate(-4)" stroke="none" fill="white"/>
+    <ellipse cx="87" cy="58" rx="7" ry="11" transform="rotate(-4)" stroke="none" fill="white"/>
+    <line stroke-linecap="round" x1="70" y1="87" x2="93" y2="85"/>
+    <ellipse cx="72" cy="147" rx="42" ry="16" transform="rotate(-5)"/>
+  </g>
+  <g transform="scale(-1.03,1.03) translate(-228 -4)">
+    <ellipse cx="75" cy="72" rx="47" ry="59" transform="rotate(-5)"/>
+    <ellipse cx="70" cy="56" rx="7" ry="11" stroke="none" fill="white" transform="rotate(-2)"/>
+    <ellipse cx="93" cy="56" rx="7" ry="11" stroke="none" fill="white" transform="rotate(-2)"/>
+    <line stroke-linecap="round" x1="70" y1="95" x2="95" y2="92"/>
+    <path stroke-linecap="round" d="M35 155 C70 110, 96 120, 130 145"   />
+  </g>
+</svg>

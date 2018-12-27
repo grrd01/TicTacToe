@@ -12,9 +12,23 @@ var CACHE = CACHE_NAME + "-" + CACHE_VERSION;
 
 var urlsToCache = [
     "index.html",
-    "images/o.svg",
-    "images/x.svg",
+    "images/2online.svg",
+    "images/2player.svg",
+    "images/4inarow.svg",
+    "images/dice.svg",
+    "images/easy.svg",
     "images/favicon.ico",
+    "images/hard.svg",
+    "images/info.svg",
+    "images/mail.svg",
+    "images/medium.svg",
+    "images/o.svg",
+    "images/puzzle.svg",
+    "images/ttt1.svg",
+    "images/ttt2.svg",
+    "images/ttt3.svg",
+    "images/ttt4.svg",
+    "images/x.svg",
     "scripts/app.js",
     "styles/app.css"
 ];
