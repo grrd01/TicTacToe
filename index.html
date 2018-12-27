@@ -23,34 +23,38 @@
     <body>
         <div class="page" id="iTitle">
             <div class="content">
-                <svg viewBox="0 0 500 100">
-                    <text class="title1" x="5px" y="70%" dy="0">grrd's</text>
-                    <symbol id="s-text1">
-                        <text x="37%" y="70%" dy="0">Tic Tac Toe</text>
-                    </symbol>
-                    <use class="text" xlink:href="#s-text1"></use>
-                    <use class="text" xlink:href="#s-text1"></use>
-                    <use class="text" xlink:href="#s-text1"></use>
-                    <use class="text" xlink:href="#s-text1"></use>
-                    <use class="text" xlink:href="#s-text1"></use>
-                </svg>
-                <div class="mini-buttonlist">
-                    <div id="iInfo" class="mini-button">
-                        <img class="mini-img" src="images/info.svg" alt="Info">
+                <header>
+                    <svg viewBox="0 0 500 100">
+                        <text class="title1" x="5px" y="70%" dy="0">grrd's</text>
+                        <symbol id="s-text1">
+                            <text x="37%" y="70%" dy="0">Tic Tac Toe</text>
+                        </symbol>
+                        <use class="text" xlink:href="#s-text1"></use>
+                        <use class="text" xlink:href="#s-text1"></use>
+                        <use class="text" xlink:href="#s-text1"></use>
+                        <use class="text" xlink:href="#s-text1"></use>
+                        <use class="text" xlink:href="#s-text1"></use>
+                    </svg>
+                    <div class="mini-buttonlist">
+                        <div id="iInfo" class="mini-button">
+                            <img class="mini-img" src="images/info.svg" alt="Info">
+                        </div>
                     </div>
-                </div>
-                <div id="i2Players" class="list-button" data-payer2="human">
-                    <img class="button-img" src="images/2player.svg" alt="2 Players"><div>2&nbsp;Players</div>
-                </div>
-                <div id="iEasy" class="list-button" data-payer2="easy">
-                    <img class="button-img" src="images/easy.svg" alt="Easy"><div>Easy</div>
-                </div>
-                <div id="iMedium" class="list-button" data-payer2="medium">
-                    <img class="button-img" src="images/medium.svg" alt="Medium"><div>Medium</div>
-                </div>
-                <div id="iHard" class="list-button" data-payer2="hard">
-                    <img class="button-img" src="images/hard.svg" alt="Hard"><div>Hard</div>
-                </div>
+                </header>
+                <nav>
+                    <div id="i2Players" class="list-button" data-payer2="human">
+                        <img class="button-img" src="images/2player.svg" alt="2 Players"><div>2&nbsp;Players</div>
+                    </div>
+                    <div id="iEasy" class="list-button" data-payer2="easy">
+                        <img class="button-img" src="images/easy.svg" alt="Easy"><div>Easy</div>
+                    </div>
+                    <div id="iMedium" class="list-button" data-payer2="medium">
+                        <img class="button-img" src="images/medium.svg" alt="Medium"><div>Medium</div>
+                    </div>
+                    <div id="iHard" class="list-button" data-payer2="hard">
+                        <img class="button-img" src="images/hard.svg" alt="Hard"><div>Hard</div>
+                    </div>
+                </nav>
             </div>
             <div id="iPopupInfo" class="popup popup-init">
                 <div class="popup-head">
@@ -103,38 +107,40 @@
 
         </div>
         <div class="page" id="iGame">
-            <div>
-                <div id="iMessage"></div>
-                <div id="iClose" class="close-button">
-                    <img class="" src="images/x.svg" alt="close">
-                </div>
-            </div>
-
-            <div class="grid-container"></div>
-            <div id="iPopupScore" class="popup popup-init">
-                <div class="popup-head">
-                    <svg viewBox="0 0 500 100">
-                        <text class="title1" x="5px" y="70%" dy="0">grrd's</text>
-                        <symbol id="s-text3">
-                            <text x="37%" y="70%" dy="0">Tic Tac Toe</text>
-                        </symbol>
-                        <use class="text" xlink:href="#s-text3"></use>
-                        <use class="text" xlink:href="#s-text3"></use>
-                        <use class="text" xlink:href="#s-text3"></use>
-                        <use class="text" xlink:href="#s-text3"></use>
-                        <use class="text" xlink:href="#s-text3"></use>
-                    </svg>
-                </div>
-                <div class="popup-body">
-                    <div class="popup-content"></div>
-                    <div class="popup-content"></div>
-                </div>
-                <div class="popup-footer">
-                    <div id="iOK" class="button">
-                        <div class="button-span">OK</div>
+            <main>
+                <div>
+                    <div id="iMessage"></div>
+                    <div id="iClose" class="close-button">
+                        <img class="" src="images/x.svg" alt="close">
                     </div>
                 </div>
-            </div>
+
+                <div class="grid-container"></div>
+                <div id="iPopupScore" class="popup popup-init">
+                    <div class="popup-head">
+                        <svg viewBox="0 0 500 100">
+                            <text class="title1" x="5px" y="70%" dy="0">grrd's</text>
+                            <symbol id="s-text3">
+                                <text x="37%" y="70%" dy="0">Tic Tac Toe</text>
+                            </symbol>
+                            <use class="text" xlink:href="#s-text3"></use>
+                            <use class="text" xlink:href="#s-text3"></use>
+                            <use class="text" xlink:href="#s-text3"></use>
+                            <use class="text" xlink:href="#s-text3"></use>
+                            <use class="text" xlink:href="#s-text3"></use>
+                        </svg>
+                    </div>
+                    <div class="popup-body">
+                        <div class="popup-content"></div>
+                        <div class="popup-content"></div>
+                    </div>
+                    <div class="popup-footer">
+                        <div id="iOK" class="button">
+                            <div class="button-span">OK</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
         <script src="scripts/app.js"></script>
     </body>
