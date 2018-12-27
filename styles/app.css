@@ -6,7 +6,8 @@ body {
     background: linear-gradient(#444, #222);
     min-width: 100vw;
     margin: 0;
-    overflow-x: hidden;
+    position:fixed;
+    overflow:hidden;
     font-family: Arial, sans-serif;
     font-size: large;
     color: white;
@@ -14,6 +15,12 @@ body {
 
 .page {
     width: 100vw;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+
 }
 
 .content {
@@ -55,6 +62,35 @@ body {
         transform: translateX(-100vw);
     }
 }
+.swipe-in-left {
+    animation-name: swipe-in-left;
+    animation-fill-mode: forwards;
+    animation-duration: 0.7s;
+}
+
+@keyframes swipe-in-left {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100vw);
+    }
+}
+
+.swipe-out-right {
+    animation-name: swipe-out-right;
+    animation-fill-mode: forwards;
+    animation-duration: 0.7s;
+}
+
+@keyframes swipe-out-right {
+    from {
+        transform: translateX(-100vw);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
 
 .grid-container {
     display: grid;
@@ -62,7 +98,7 @@ body {
     margin: 5px auto;
     width: calc(100vmin - 10px);
 }
-.grid-item, .list-button, .mini-button {
+.grid-item, .list-button, .mini-button, .close-button {
     border:  1px transparent;
     border-radius: 2vmin;
     box-shadow: 0 0 0.5vmin 2px #000;
@@ -76,21 +112,14 @@ body {
 .grid-item {
     height: calc(33vmin - 18px);
 }
-.mini-button {
-    border-radius: 10px;
-    width: 60px;
-    height: 40px;
-    float: right;
-}
-.mini-img {
-    margin: 5px 15px 5px 15px;
-    max-height: calc(100% - 10px);
-}
-.grid-item:hover, .list-button:hover, .mini-button:hover {
+.grid-item:hover, .list-button:hover, .mini-button:hover, .close-button:hover {
     background-image: linear-gradient(#444, #555 35%, #333 100%), linear-gradient(#ccc, #555 8%, #222 100%);
 }
-.grid-item:active, .list-button:active, .mini-button:active {
+.grid-item:active, .list-button:active, .mini-button:active, .close-button:active {
     background-image: linear-gradient(#393939, #111 35%, #292929 100%), linear-gradient(#222, #111 92%, #888 100%);
+}
+.grid-item:active > img{
+    margin-top: 0.1em;
 }
 .svg-xo {
     animation: 1s xoFadeIn;
@@ -118,13 +147,19 @@ body {
     }
 }
 
+#iMessage {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+}
+
 .popup {
     display: block;
     position:absolute;
     left: 0;
     right: 0;
     margin: auto;
-    top: 123px;
     border:  1px transparent;
     border-radius: 15px;
     box-shadow: 3px 3px 3vmin 3px #000;
@@ -140,10 +175,14 @@ body {
     opacity: 0;
 }
 .popup-show {
+    animation: 1s fadeIn;
+    animation-fill-mode: forwards;
+}
+.popup-show-slow {
     /*visibility: visible;
     transition: opacity 0.5s ease-in-out;
     opacity: 1;*/
-    animation: 3s fadeIn;
+    animation: 3s fadeInSlow;
     animation-fill-mode: forwards;
 }
 .popup-hide {
@@ -151,8 +190,16 @@ body {
     animation-fill-mode: forwards;
 }
 
-
 @keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+@keyframes fadeInSlow {
     0% {
         opacity: 0;
     }
@@ -182,18 +229,22 @@ body {
 }
 .popup-content {
     margin-bottom: 20px;
-
-
 }
 .popup-footer {
     height: 50px;
     margin: 20px;
 }
+#iPopupScore {
+    top: 123px;
+}
+#iPopupInfo {
+    top: 20px;
+    height: 85%;
+    overflow-y: scroll;
+}
 
 .button {
-    position:absolute;
-    bottom: 10px;
-    right: 10px;
+    float: right;
     border:  1px transparent;
     border-radius: 10px;
     box-shadow: 0 0 0.5vmin 2px #000;
@@ -220,6 +271,32 @@ body {
 }
 .button-span:active {
     margin-top: 12px;
+}
+.mini-button {
+    border-radius: 10px;
+    width: 60px;
+    height: 40px;
+    float: right;
+}
+.mini-buttonlist {
+    height: 60px;
+}
+.mini-img {
+    margin: 5px 15px 5px 15px;
+    max-height: calc(100% - 10px);
+}
+.close-button {
+    border-radius: 20px;
+    width: 20px;
+    height: 20px;
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.text-img {
+    height: 20px;
+    margin-top: 3px;
+    margin-bottom: -3px;
 }
 
 /* unvisited link */
@@ -249,10 +326,12 @@ a:active {
     .list-button > div {
         margin-top: 20px;
         margin-bottom: 20px;
+        pointer-events: none;
     }
     .button-img {
         max-width: calc(100% - 40px);
         margin-top: 20px;
+        pointer-events: none;
     }
 }
 
@@ -262,11 +341,13 @@ a:active {
     }
     .list-button > div {
         display: inline;
+        pointer-events: none;
     }
     .button-img {
         margin: 20px;
         vertical-align: middle;
         max-height: calc(100% - 40px);
+        pointer-events: none;
     }
 }
 

@@ -23,6 +23,7 @@
     // aktueller Spieler
     var nCurrentPlayer = 0;
     var lPlayers = ["human", "human"];
+    var lImages = ["x.svg", "o.svg"];
     var lGewonnen;
     var lAnzGewonnen = [0, 0];
 
@@ -118,6 +119,7 @@
     function fAI() {
         var rHighScore = {nScore: -1, nRow: undefined, nCol: undefined};
         var lHighScore = [];
+        var nRandom;
         // Wert der Felder für aktuellen Spieler ermitteln
         var lScore = fAIscore();
         // Wert der Felder für Gegner ermitteln, dort spielen, falls höher als eigener Wert
@@ -138,21 +140,46 @@
                 }
             });
         });
-        lHighScore.sort(function(a, b) {
+        lHighScore.sort(function (a, b) {
             return b.nScore - a.nScore;
         });
         console.log(lHighScore);
+        if (lPlayers[nCurrentPlayer] === "easy") {
+            nRandom = Math.floor(Math.random() * 3);
+            document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
+        }
+        if (lPlayers[nCurrentPlayer] === "medium") {
+            nRandom = Math.floor(Math.random() * 2);
+            document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
+        }
         if (lPlayers[nCurrentPlayer] === "hard") {
             document.querySelectorAll("[data-row='" + lHighScore[0].nRow + "'][data-col='" + lHighScore[0].nCol + "']")[0].click();
         }
 
     }
 
+    // Nachricht über Spiel-Grid setzen
+    function fSetMessage(nPlayer, cMsg) {
+        var eMessage = document.getElementById("iMessage");
+        while (eMessage.firstChild) {
+            eMessage.removeChild(eMessage.firstChild);
+        }
+        if (nPlayer !== undefined) {
+            eImg = document.createElement("img");
+            eImg.setAttribute("src", "images/" + lImages[nPlayer]);
+            eImg.setAttribute("class", "text-img");
+            eMessage.appendChild(eImg);
+        }
+        eMessage.innerHTML = eMessage.innerHTML + cMsg;
+    }
+
+
     // hat jemand gewonnen? endet das spiel unentschieden?
     function fCheckGame() {
         var popupScore = document.getElementById("iPopupScore");
         if (fCheckGewonnen()) {
             lAnzGewonnen[nCurrentPlayer] += 1;
+            fSetMessage(nCurrentPlayer," wins");
             Array.from(document.getElementsByClassName("svg-xo")).forEach(function (rSVG) {
                 rSVG.classList.add("svg-xo-dimmed");
             });
@@ -163,22 +190,23 @@
             popupScore.getElementsByClassName("popup-content")[1].innerText = "Score: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
             popupScore.classList.remove("popup-init");
             popupScore.classList.remove("popup-hide");
-            popupScore.classList.add("popup-show");
+            popupScore.classList.add("popup-show-slow");
         } else if (lGame.findIndex((x) => x.includes(undefined)) < 0) {
+            fSetMessage(undefined,"Draw");
             popupScore.getElementsByClassName("popup-content")[0].innerText = "This game ends in a draw.";
             popupScore.getElementsByClassName("popup-content")[1].innerText = "Score: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
             popupScore.classList.remove("popup-init");
             popupScore.classList.remove("popup-hide");
-            popupScore.classList.add("popup-show");
+            popupScore.classList.add("popup-show-slow");
         } else {
             nCurrentPlayer = 1 - nCurrentPlayer;
+            fSetMessage(nCurrentPlayer," plays");
             fAI();
         }
     }
 
     // Click auf ein Panel
     function fClickPanel(event) {
-        var lImages = ["x.svg", "o.svg"];
         if (event.target.nodeName === "DIV") {
             var nRow = event.target.getAttribute("data-row");
             var nCol = event.target.getAttribute("data-col");
@@ -194,9 +222,11 @@
         }
     }
 
-    // Spiel zurücksetzen
+    // zu Spielpanel wechseln
     function fStartGame() {
         lPlayers[1] = event.target.getAttribute("data-payer2");
+        document.getElementById("iTitle").classList.remove("swipe-out-right");
+        document.getElementById("iGame").classList.remove("swipe-in-left");
         document.getElementById("iTitle").classList.add("swipe-out");
         document.getElementById("iGame").classList.add("swipe-in");
         fAI();
@@ -214,8 +244,19 @@
                 lGame[nIndexRow][nIndexCol] = undefined;
             });
         });
-        document.getElementById("iPopupScore").classList.remove("popup-show");
+        document.getElementById("iPopupScore").classList.remove("popup-show-slow");
         document.getElementById("iPopupScore").classList.add("popup-hide");
+        nCurrentPlayer = 0;
+        fSetMessage(nCurrentPlayer," begins");
+    }
+    // Spiel verlassen
+    function fQuitGame() {
+        fResetGame();
+        lAnzGewonnen = [0, 0];
+        document.getElementById("iTitle").classList.remove("swipe-out");
+        document.getElementById("iGame").classList.remove("swipe-in");
+        document.getElementById("iTitle").classList.add("swipe-out-right");
+        document.getElementById("iGame").classList.add("swipe-in-left");
     }
 
     // Popup Info
@@ -256,8 +297,10 @@
         // Click-Handler auf die Buttons & Panels legen
         document.getElementById("iInfo").addEventListener("click", fShowPopupInfo);
         document.getElementById("iInfoClose").addEventListener("click", fHidePopupInfo);
-        document.getElementById("i2Players").addEventListener("click", fStartGame);
-        document.getElementById("iHard").addEventListener("click", fStartGame);
+        Array.from(document.getElementsByClassName("list-button")).forEach(function (rButton) {
+            rButton.addEventListener("click", fStartGame);
+        });
+        document.getElementById("iClose").addEventListener("click", fQuitGame);
         Array.from(lPanel).forEach(function (rPanel) {
             rPanel.addEventListener("click", fClickPanel);
         });

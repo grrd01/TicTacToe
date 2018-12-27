@@ -25,57 +25,20 @@
         <div class="content">
             <svg viewBox="0 0 500 100">
                 <text id="title1" x="5px" y="70%" dy="0">grrd's</text>
-                <!-- Symbol-->
                 <symbol id="s-text">
                     <text x="37%" y="70%" dy="0">Tic Tac Toe</text>
                 </symbol>
-                <!-- Duplicate symbols-->
                 <use class="text" xlink:href="#s-text"></use>
                 <use class="text" xlink:href="#s-text"></use>
                 <use class="text" xlink:href="#s-text"></use>
                 <use class="text" xlink:href="#s-text"></use>
                 <use class="text" xlink:href="#s-text"></use>
             </svg>
-            <!--svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%">
-                <!-- Text using the #pattern in defs as the fill ->
-                <text x="50%" text-anchor="middle" y="20%" dy="0.4em" fill="url(#pattern)" font-family="Sans, Impact" font-size="5vh">grrd's Tic Tac Toe</text>
-
-                <defs>
-                    <!-- Da gradient ->
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0">
-                        <stop offset="0%" style="stop-color:#33235b;"></stop>
-                        <stop offset="25%" style="stop-color:#D62229;"></stop>
-                        <stop offset="50%" style="stop-color:#E97639;"></stop>
-                        <stop offset="75%" style="stop-color:#792042;"></stop>
-                        <stop offset="100%" style="stop-color:#33235b;"></stop>
-                    </linearGradient>
-
-                    <!-- Stitch 2 gradients together for seamless animation  ->
-                    <pattern id="pattern" x="0" y="0" width="300%" height="100%" patternUnits="userSpaceOnUse">
-                        <rect x="0" y="0" width="150%" height="100%" fill="url(#gradient)">
-                            <animate attributeType="XML"
-                                     attributeName="x"
-                                     from="0" to="150%"
-                                     dur="7s"
-                                     repeatCount="indefinite"/>
-                        </rect>
-                        <rect x="-150%" y="0" width="150%" height="100%" fill="url(#gradient)">
-                            <animate attributeType="XML"
-                                     attributeName="x"
-                                     from="-150%" to="0"
-                                     dur="7s"
-                                     repeatCount="indefinite"/>
-                        </rect>
-                    </pattern>
-                </defs>
-            </svg-->
-            <div style="width: 100%; height: 70px;">
+            <div class="mini-buttonlist">
                 <div id="iInfo" class="mini-button">
                     <img class="mini-img" src="images/info.svg" alt="Info">
                 </div>
             </div>
-
-
             <div id="i2Players" class="list-button" data-payer2="human">
                 <img class="button-img" src="images/2player.svg" alt="2 Players"><div>2&nbsp;Players</div>
             </div>
@@ -93,11 +56,9 @@
             <div class="popup-head">
                 <svg viewBox="0 0 500 100">
                     <text id="title1" x="5px" y="70%" dy="0">grrd's</text>
-                    <!-- Symbol-->
                     <symbol id="s-text">
                         <text x="37%" y="70%" dy="0">Tic Tac Toe</text>
                     </symbol>
-                    <!-- Duplicate symbols-->
                     <use class="text" xlink:href="#s-text"></use>
                     <use class="text" xlink:href="#s-text"></use>
                     <use class="text" xlink:href="#s-text"></use>
@@ -131,8 +92,16 @@
                 </div>
             </div>
         </div>
+
     </div>
     <div class="page" id="iGame">
+        <div>
+            <div id="iMessage"><img class="text-img" src="images/x.svg"> begins</div>
+            <div id="iClose" class="close-button">
+                <img class="" src="images/x.svg" alt="close">
+            </div>
+        </div>
+
         <div class="grid-container"></div>
         <div id="iPopupScore" class="popup popup-init">
             <div class="popup-head">
