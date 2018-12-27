@@ -1,141 +1,141 @@
 <!DOCTYPE html>
 <!--
-* grrd's Dice
-* Copyright (c) 2015 Gerard Tyedmers, grrd@gmx.net
+* grrd's Tic Tac Toe
+* Copyright (c) 2018 Gerard Tyedmers, grrd@gmx.net
 * Licensed under the MPL License
 -->
 <html lang="en">
-<head>
-    <title>grrd's Tic Tac Toe</title>
-    <link rel="icon" href="images/favicon.ico">
-    <link rel="manifest" href="manifest/appmanifest.json">
-    <link rel="apple-touch-icon" href="images/icon_256.png">
-    <link rel="apple-touch-startup-image" href="images/icon_512.png">
-    <meta name="description" content="grrd's Tic Tac Toe is a HTML5 Game that works offline"/>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#444"/>
-    <meta name="apple-mobile-web-app-title" content="Tic Tac Toe">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" >
-    <link rel="stylesheet" href="styles/app.css">
-</head>
-<body>
-    <div class="page" id="iTitle">
-        <div class="content">
-            <svg viewBox="0 0 500 100">
-                <text class="title1" x="5px" y="70%" dy="0">grrd's</text>
-                <symbol id="s-text1">
-                    <text x="37%" y="70%" dy="0">Tic Tac Toe</text>
-                </symbol>
-                <use class="text" xlink:href="#s-text1"></use>
-                <use class="text" xlink:href="#s-text1"></use>
-                <use class="text" xlink:href="#s-text1"></use>
-                <use class="text" xlink:href="#s-text1"></use>
-                <use class="text" xlink:href="#s-text1"></use>
-            </svg>
-            <div class="mini-buttonlist">
-                <div id="iInfo" class="mini-button">
-                    <img class="mini-img" src="images/info.svg" alt="Info">
-                </div>
-            </div>
-            <div id="i2Players" class="list-button" data-payer2="human">
-                <img class="button-img" src="images/2player.svg" alt="2 Players"><div>2&nbsp;Players</div>
-            </div>
-            <div id="iEasy" class="list-button" data-payer2="easy">
-                <img class="button-img" src="images/easy.svg" alt="Easy"><div>Easy</div>
-            </div>
-            <div id="iMedium" class="list-button" data-payer2="medium">
-                <img class="button-img" src="images/medium.svg" alt="Medium"><div>Medium</div>
-            </div>
-            <div id="iHard" class="list-button" data-payer2="hard">
-                <img class="button-img" src="images/hard.svg" alt="Hard"><div>Hard</div>
-            </div>
-        </div>
-        <div id="iPopupInfo" class="popup popup-init">
-            <div class="popup-head">
+    <head>
+        <title>grrd's Tic Tac Toe</title>
+        <link rel="icon" href="images/favicon.ico">
+        <link rel="manifest" href="manifest/appmanifest.json">
+        <link rel="apple-touch-icon" href="images/icon_256.png">
+        <link rel="apple-touch-startup-image" href="images/icon_512.png">
+        <meta name="description" content="grrd's Tic Tac Toe is a HTML5 Game that works offline"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#444"/>
+        <meta name="apple-mobile-web-app-title" content="Tic Tac Toe">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" >
+        <link rel="stylesheet" href="styles/app.css">
+    </head>
+    <body>
+        <div class="page" id="iTitle">
+            <div class="content">
                 <svg viewBox="0 0 500 100">
                     <text class="title1" x="5px" y="70%" dy="0">grrd's</text>
-                    <symbol id="s-text2">
+                    <symbol id="s-text1">
                         <text x="37%" y="70%" dy="0">Tic Tac Toe</text>
                     </symbol>
-                    <use class="text" xlink:href="#s-text2"></use>
-                    <use class="text" xlink:href="#s-text2"></use>
-                    <use class="text" xlink:href="#s-text2"></use>
-                    <use class="text" xlink:href="#s-text2"></use>
-                    <use class="text" xlink:href="#s-text2"></use>
+                    <use class="text" xlink:href="#s-text1"></use>
+                    <use class="text" xlink:href="#s-text1"></use>
+                    <use class="text" xlink:href="#s-text1"></use>
+                    <use class="text" xlink:href="#s-text1"></use>
+                    <use class="text" xlink:href="#s-text1"></use>
                 </svg>
-            </div>
-            <div id="popupInfo" class="popup-body">
-                <div class="popup-content">Who is the first to get 3 fields in a line?</div>
-                <div class="popup-content">
-                    <img class="w25" src="images/ttt1.svg">
-                    <img class="w25" src="images/ttt2.svg">
-                    <img class="w25" src="images/ttt3.svg">
-                    <img class="w25" src="images/ttt4.svg">
+                <div class="mini-buttonlist">
+                    <div id="iInfo" class="mini-button">
+                        <img class="mini-img" src="images/info.svg" alt="Info">
+                    </div>
                 </div>
-                <div class="popup-content">Developed by Gérard Tyedmers</div>
-                <table id="tLinks">
-                    <tr>
-                        <td class="w20"><a href="https://grrd01.github.io/Puzzle" target="_blank" rel="noopener"><img src="images/puzzle.svg" alt="Puzzle" class="w60"></a></td>
-                        <td class="w80">Don't miss <a href="https://grrd01.github.io/Puzzle" target="_blank" rel="noopener">grrd's Puzzle</a></td>
-                    </tr>
-                    <tr>
-                        <td class="w20"><a href="https://grrd01.github.io/Dice/" target="_blank" rel="noopener"><img src="images/dice.svg" alt="Puzzle" class="w60"></a></td>
-                        <td class="w80">Have a look at <a href="https://grrd01.github.io/Dice/" target="_blank" rel="noopener">grrd's Dice</a></td>
-                    </tr>
-                    <tr>
-                        <td class="w20"><a href="https://grrd01.github.io/4inaRow/" target="_blank" rel="noopener"><img src="images/4inarow.svg" alt="4 in a Row" class="w60"></a></td>
-                        <td class="w80">Try <a href="https://grrd01.github.io/4inaRow/" target="_blank" rel="noopener">grrd's 4 in a Row</a></td>
-                    </tr>
-                    <tr>
-                        <td class="w20"><a href="mailto:grrd@gmx.net"><img src="images/mail.svg" alt="Mail" class="w60"></a></td>
-                        <td class="w80">E-mail: <a href="mailto:grrd@gmx.net">grrd@gmx.net</a></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="popup-footer">
-                <div id="iInfoClose" class="button">
-                    <div class="button-span">OK</div>
+                <div id="i2Players" class="list-button" data-payer2="human">
+                    <img class="button-img" src="images/2player.svg" alt="2 Players"><div>2&nbsp;Players</div>
+                </div>
+                <div id="iEasy" class="list-button" data-payer2="easy">
+                    <img class="button-img" src="images/easy.svg" alt="Easy"><div>Easy</div>
+                </div>
+                <div id="iMedium" class="list-button" data-payer2="medium">
+                    <img class="button-img" src="images/medium.svg" alt="Medium"><div>Medium</div>
+                </div>
+                <div id="iHard" class="list-button" data-payer2="hard">
+                    <img class="button-img" src="images/hard.svg" alt="Hard"><div>Hard</div>
                 </div>
             </div>
-        </div>
+            <div id="iPopupInfo" class="popup popup-init">
+                <div class="popup-head">
+                    <svg viewBox="0 0 500 100">
+                        <text class="title1" x="5px" y="70%" dy="0">grrd's</text>
+                        <symbol id="s-text2">
+                            <text x="37%" y="70%" dy="0">Tic Tac Toe</text>
+                        </symbol>
+                        <use class="text" xlink:href="#s-text2"></use>
+                        <use class="text" xlink:href="#s-text2"></use>
+                        <use class="text" xlink:href="#s-text2"></use>
+                        <use class="text" xlink:href="#s-text2"></use>
+                        <use class="text" xlink:href="#s-text2"></use>
+                    </svg>
+                </div>
+                <div id="popupInfo" class="popup-body">
+                    <div class="popup-content">Who is the first to get 3 fields in a line?</div>
+                    <div class="popup-content">
+                        <img class="w25" src="images/ttt1.svg" alt="Example1">
+                        <img class="w25" src="images/ttt2.svg" alt="Example2">
+                        <img class="w25" src="images/ttt3.svg" alt="Example3">
+                        <img class="w25" src="images/ttt4.svg" alt="Example4">
+                    </div>
+                    <div class="popup-content">Developed by Gérard Tyedmers</div>
+                    <table id="tLinks">
+                        <tr>
+                            <td class="w20"><a href="https://grrd01.github.io/Puzzle" target="_blank" rel="noopener"><img src="images/puzzle.svg" alt="Puzzle" class="w60"></a></td>
+                            <td class="w80">Don't miss <a href="https://grrd01.github.io/Puzzle" target="_blank" rel="noopener">grrd's Puzzle</a></td>
+                        </tr>
+                        <tr>
+                            <td class="w20"><a href="https://grrd01.github.io/Dice/" target="_blank" rel="noopener"><img src="images/dice.svg" alt="Puzzle" class="w60"></a></td>
+                            <td class="w80">Have a look at <a href="https://grrd01.github.io/Dice/" target="_blank" rel="noopener">grrd's Dice</a></td>
+                        </tr>
+                        <tr>
+                            <td class="w20"><a href="https://grrd01.github.io/4inaRow/" target="_blank" rel="noopener"><img src="images/4inarow.svg" alt="4 in a Row" class="w60"></a></td>
+                            <td class="w80">Try <a href="https://grrd01.github.io/4inaRow/" target="_blank" rel="noopener">grrd's 4 in a Row</a></td>
+                        </tr>
+                        <tr>
+                            <td class="w20"><a href="mailto:grrd@gmx.net"><img src="images/mail.svg" alt="Mail" class="w60"></a></td>
+                            <td class="w80">E-mail: <a href="mailto:grrd@gmx.net">grrd@gmx.net</a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="popup-footer">
+                    <div id="iInfoClose" class="button">
+                        <div class="button-span">OK</div>
+                    </div>
+                </div>
+            </div>
 
-    </div>
-    <div class="page" id="iGame">
-        <div>
-            <div id="iMessage"></div>
-            <div id="iClose" class="close-button">
-                <img class="" src="images/x.svg" alt="close">
-            </div>
         </div>
+        <div class="page" id="iGame">
+            <div>
+                <div id="iMessage"></div>
+                <div id="iClose" class="close-button">
+                    <img class="" src="images/x.svg" alt="close">
+                </div>
+            </div>
 
-        <div class="grid-container"></div>
-        <div id="iPopupScore" class="popup popup-init">
-            <div class="popup-head">
-                <svg viewBox="0 0 500 100">
-                    <text class="title1" x="5px" y="70%" dy="0">grrd's</text>
-                    <symbol id="s-text3">
-                        <text x="37%" y="70%" dy="0">Tic Tac Toe</text>
-                    </symbol>
-                    <use class="text" xlink:href="#s-text3"></use>
-                    <use class="text" xlink:href="#s-text3"></use>
-                    <use class="text" xlink:href="#s-text3"></use>
-                    <use class="text" xlink:href="#s-text3"></use>
-                    <use class="text" xlink:href="#s-text3"></use>
-                </svg>
-            </div>
-            <div class="popup-body">
-                <div class="popup-content"></div>
-                <div class="popup-content"></div>
-            </div>
-            <div class="popup-footer">
-                <div id="iOK" class="button">
-                    <div class="button-span">OK</div>
+            <div class="grid-container"></div>
+            <div id="iPopupScore" class="popup popup-init">
+                <div class="popup-head">
+                    <svg viewBox="0 0 500 100">
+                        <text class="title1" x="5px" y="70%" dy="0">grrd's</text>
+                        <symbol id="s-text3">
+                            <text x="37%" y="70%" dy="0">Tic Tac Toe</text>
+                        </symbol>
+                        <use class="text" xlink:href="#s-text3"></use>
+                        <use class="text" xlink:href="#s-text3"></use>
+                        <use class="text" xlink:href="#s-text3"></use>
+                        <use class="text" xlink:href="#s-text3"></use>
+                        <use class="text" xlink:href="#s-text3"></use>
+                    </svg>
+                </div>
+                <div class="popup-body">
+                    <div class="popup-content"></div>
+                    <div class="popup-content"></div>
+                </div>
+                <div class="popup-footer">
+                    <div id="iOK" class="button">
+                        <div class="button-span">OK</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script type="text/javascript" src="scripts/app.js"></script>
-</body>
+        <script src="scripts/app.js"></script>
+    </body>
 </html>

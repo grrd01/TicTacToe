@@ -381,7 +381,6 @@ table {
     stroke-linejoin: round;
     stroke-dasharray: 70 330;
     stroke-dashoffset: 0;
-    -webkit-animation: stroke 6s infinite linear;
     animation: stroke 6s infinite linear;
     font: 3.8em/1 Open Sans, Impact;
 }
@@ -394,7 +393,7 @@ table {
     animation-delay: -2.4s;
 }
 .text:nth-child(5n + 3) {
-    stroke: #ffff;
+    stroke: #fff;
     animation-delay: -3.6s;
 }
 .text:nth-child(5n + 4) {
