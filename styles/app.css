@@ -1,10 +1,8 @@
 html {
     height: 100%;
-    overflow: hidden;
 }
 
 body {
-    height: 100%;
     background: linear-gradient(#444, #222);
     min-width: 100vw;
     margin: 0;
@@ -23,6 +21,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
+    background: linear-gradient(#444, #222);
 }
 
 .content {
@@ -30,8 +29,6 @@ body {
 }
 
 #iGame {
-    position: absolute;
-    top: 0;
     transform: translateX(100vw);
     opacity: 0;
 }
@@ -328,9 +325,9 @@ body {
     border-radius: 20px;
     width: 20px;
     height: 20px;
-    float: right;
-    margin-top: 10px;
-    margin-right: 10px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 .text-img {
     height: 20px;
@@ -384,6 +381,9 @@ table {
 }
 
 @media (orientation: portrait) {
+    .grid-container {
+        margin-top: 40px;
+    }
     .list-button {
         max-height: calc(23vh - 17px - 5.5vw);
     }
