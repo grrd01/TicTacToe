@@ -402,10 +402,11 @@ table {
 /* animated svg */
 
 .title1 {
-    stroke: #abb;
+    stroke: #b9c1cF;
     fill: none;
     stroke-width: 3px;
-    font: 3.8em/1 Open Sans, Impact;
+    font: 3.8em/1 "Times New Roman", Times, serif;
+    text-shadow: none;
 }
 
 .text {
@@ -415,7 +416,8 @@ table {
     stroke-dasharray: 70 330;
     stroke-dashoffset: 0;
     animation: stroke 6s infinite linear;
-    font: 3.8em/1 Open Sans, Impact;
+    font: 3.8em/1 "Times New Roman", Times, serif;
+    text-shadow: none;
 }
 .text:nth-child(5n + 1) {
     stroke: #ff0142;
