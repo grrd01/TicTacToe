@@ -183,7 +183,6 @@ body {
 
 .popup {
     display: block;
-    position:absolute;
     left: 0;
     right: 0;
     margin: auto;
@@ -262,6 +261,7 @@ body {
     margin: 20px;
 }
 #iPopupScore {
+    position:absolute;
     top: 123px;
 }
 .overflow {
@@ -276,7 +276,7 @@ body {
     overflow-y: auto;
 }
 .buffer {
-    height: 20px;
+    height: 40px;
 }
 
 .button {
