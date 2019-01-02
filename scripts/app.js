@@ -26,6 +26,7 @@
     var lImages = ["x.svg", "o.svg"];
     var lGewonnen;
     var lAnzGewonnen = [0, 0];
+    var bWait = false;
 
     function fCheckGewonnen() {
         // Richtungen zum Prüfen auf Sieg: - | \ /
@@ -111,7 +112,6 @@
                 }
             });
         });
-        console.log(lScore);
         return lScore;
     }
 
@@ -168,8 +168,8 @@
         }
         // Rangliste der Möglichkeiten erstellen
         var nMyHighScore = 0;
-        lScore.forEach(function (lScoreRow, nIndexRow) {
-            lScoreRow.forEach(function (nScoreCol, nIndexCol) {
+        lScore.forEach(function (lScoreRow) {
+            lScoreRow.forEach(function (nScoreCol) {
                 if (nScoreCol > nMyHighScore) {
                     nMyHighScore = nScoreCol;
                 }
@@ -192,19 +192,21 @@
         lHighScore.sort(function (a, b) {
             return b.nScore - a.nScore;
         });
-        console.log(lHighScore);
-        if (lPlayers[nCurrentPlayer] === "easy") {
-            nRandom = Math.floor(Math.random() * 3);
-            document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
-        }
-        if (lPlayers[nCurrentPlayer] === "medium") {
-            nRandom = Math.floor(Math.random() * 2);
-            document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
-        }
-        if (lPlayers[nCurrentPlayer] === "hard") {
-            document.querySelectorAll("[data-row='" + lHighScore[0].nRow + "'][data-col='" + lHighScore[0].nCol + "']")[0].click();
-        }
-
+        bWait = true;
+        setTimeout(function () {
+            bWait = false;
+            if (lPlayers[nCurrentPlayer] === "easy") {
+                nRandom = Math.floor(Math.random() * 3);
+                document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
+            }
+            if (lPlayers[nCurrentPlayer] === "medium") {
+                nRandom = Math.floor(Math.random() * 2);
+                document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
+            }
+            if (lPlayers[nCurrentPlayer] === "hard") {
+                document.querySelectorAll("[data-row='" + lHighScore[0].nRow + "'][data-col='" + lHighScore[0].nCol + "']")[0].click();
+            }
+        }, 500);
     }
 
     // Nachricht über Spiel-Grid setzen
@@ -256,7 +258,7 @@
 
     // Click auf ein Panel
     function fClickPanel(event) {
-        if (event.target.nodeName === "DIV") {
+        if (event.target.nodeName === "DIV" && bWait === false) {
             var nRow = event.target.getAttribute("data-row");
             var nCol = event.target.getAttribute("data-col");
             // Panel ist noch leer und Spiel läuft noch

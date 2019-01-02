@@ -7,7 +7,7 @@
 /*jslint devel: true, browser: true, long: true */ /*global self fetch */
 
 var CACHE_NAME = "grrds-tictactoe-cache";
-var CACHE_VERSION = "v1.4";
+var CACHE_VERSION = "v1.5";
 var CACHE = CACHE_NAME + "-" + CACHE_VERSION;
 
 var urlsToCache = [
