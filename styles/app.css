@@ -11,17 +11,17 @@ body {
     font-family: Arial, sans-serif;
     font-size: large;
     color: white;
-    text-shadow: 0 1px #000;
+    text-shadow: 1px 1px 2px #000;
 }
 
 .page {
     width: 100vw;
     position: fixed;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(#444, #222);
 }
 
 .content {
@@ -29,9 +29,8 @@ body {
 }
 
 #iGame {
-    position: absolute;
-    top: 0;
     transform: translateX(100vw);
+    opacity: 0;
 }
 
 .swipe-in {
@@ -41,11 +40,17 @@ body {
  }
 
 @keyframes swipe-in {
-    from {
+    0% {
         transform: translateX(100vw);
+        opacity: 0;
     }
-    to {
+    1% {
+        transform: translateX(100vw);
+        opacity: 1;
+    }
+    100% {
         transform: translateX(0);
+        opacity: 1;
     }
 }
 
@@ -56,11 +61,17 @@ body {
 }
 
 @keyframes swipe-out {
-    from {
+    0% {
         transform: translateX(0);
+        opacity: 1;
     }
-    to {
+    99% {
         transform: translateX(-100vw);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100vw);
+        opacity: 0;
     }
 }
 .swipe-in-left {
@@ -70,11 +81,17 @@ body {
 }
 
 @keyframes swipe-in-left {
-    from {
+    0% {
         transform: translateX(0);
+        opacity: 1;
     }
-    to {
+    99% {
         transform: translateX(100vw);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100vw);
+        opacity: 0;
     }
 }
 
@@ -85,11 +102,17 @@ body {
 }
 
 @keyframes swipe-out-right {
-    from {
+    0% {
         transform: translateX(-100vw);
+        opacity: 0;
     }
-    to {
+    1% {
+        transform: translateX(-100vw);
+        opacity: 1;
+    }
+    100% {
         transform: translateX(0);
+        opacity: 1;
     }
 }
 
@@ -121,6 +144,9 @@ body {
 }
 .grid-item:active > img{
     margin-top: 0.1em;
+}
+.mini-button:active > img{
+    margin-top: 7px;
 }
 .svg-xo {
     animation: 1s xoFadeIn;
@@ -157,7 +183,6 @@ body {
 
 .popup {
     display: block;
-    position:absolute;
     left: 0;
     right: 0;
     margin: auto;
@@ -194,10 +219,12 @@ body {
 @keyframes fadeIn {
     0% {
         opacity: 0;
+        transform: scale(0.75);
     }
     100% {
         visibility: visible;
         opacity: 1;
+        transform: scale(1);
     }
 }
 @keyframes fadeInSlow {
@@ -206,19 +233,23 @@ body {
     }
     66% {
         opacity: 0;
+        transform: scale(0.75);
     }
     100% {
          visibility: visible;
          opacity: 1;
+         transform: scale(1);
      }
 }
 @keyframes fadeOut {
     0% {
         opacity: 1;
+        transform: scale(1);
     }
     100% {
         visibility: hidden;
         opacity: 0;
+        transform: scale(0.75);
     }
 }
 .popup-head {
@@ -236,12 +267,22 @@ body {
     margin: 20px;
 }
 #iPopupScore {
+    position:absolute;
     top: 123px;
 }
-#iPopupInfo {
-    top: 20px;
-    max-height: calc(100% - 30px);
+.overflow {
+    display: block;
+    position:absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto 0 auto;
+    padding-top: 20px;
+    height: 100%;
     overflow-y: auto;
+}
+.buffer {
+    height: 40px;
 }
 
 .button {
@@ -290,9 +331,9 @@ body {
     border-radius: 20px;
     width: 20px;
     height: 20px;
-    float: right;
-    margin-top: 10px;
-    margin-right: 10px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 .text-img {
     height: 20px;
@@ -346,8 +387,11 @@ table {
 }
 
 @media (orientation: portrait) {
+    .grid-container {
+        margin-top: 40px;
+    }
     .list-button {
-        /*width: calc(100% - 28px);*/
+        max-height: calc(23vh - 17px - 5.5vw);
     }
     .list-button > div {
         display: inline;
@@ -356,23 +400,19 @@ table {
     .button-img {
         margin: 20px;
         vertical-align: middle;
-        max-height: calc(100% - 40px);
         pointer-events: none;
+        max-height: calc(23vh - 47px - 5.5vw);
     }
 }
 
-
-
-
-
-
-/* Main styles */
+/* animated svg */
 
 .title1 {
-    stroke: #abb;
+    stroke: #b9c1cF;
     fill: none;
     stroke-width: 3px;
-    font: 3.8em/1 Open Sans, Impact;
+    font: 3.8em/1 "Times New Roman", Times, serif;
+    text-shadow: none;
 }
 
 .text {
@@ -382,7 +422,8 @@ table {
     stroke-dasharray: 70 330;
     stroke-dashoffset: 0;
     animation: stroke 6s infinite linear;
-    font: 3.8em/1 Open Sans, Impact;
+    font: 3.8em/1 "Times New Roman", Times, serif;
+    text-shadow: none;
 }
 .text:nth-child(5n + 1) {
     stroke: #ff0142;
@@ -409,4 +450,3 @@ table {
         stroke-dashoffset: -400px;
     }
 }
-/* Other styles */

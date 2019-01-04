@@ -26,6 +26,7 @@
     var lImages = ["x.svg", "o.svg"];
     var lGewonnen;
     var lAnzGewonnen = [0, 0];
+    var bWait = false;
 
     function fCheckGewonnen() {
         // Richtungen zum Prüfen auf Sieg: - | \ /
@@ -105,13 +106,12 @@
         // besetzte felder sperren
         lGame.forEach(function (rRow, nIndexRow) {
             rRow.forEach(function (ignore, nIndexCol) {
-                // gehört das Feld dem Spieler? wenn nein abbrechen
+                // gehört das Feld einem Spieler? wenn nein abbrechen
                 if (lGame[nIndexRow][nIndexCol] !== undefined) {
                     lScore[nIndexRow][nIndexCol] = undefined;
                 }
             });
         });
-        console.log(lScore);
         return lScore;
     }
 
@@ -120,16 +120,65 @@
         var rHighScore = {nScore: -1, nRow: undefined, nCol: undefined};
         var lHighScore = [];
         var nRandom;
+        var lUsed = [];
         // Wert der Felder für aktuellen Spieler ermitteln
         var lScore = fAIscore();
         // Wert der Felder für Gegner ermitteln, dort spielen, falls höher als eigener Wert
         nCurrentPlayer = 1 - nCurrentPlayer;
         var lScoreOpponent = fAIscore();
         nCurrentPlayer = 1 - nCurrentPlayer;
+        // besetzte felder zählen
+        lGame.forEach(function (rRow, nIndexRow) {
+            rRow.forEach(function (ignore, nIndexCol) {
+                // gehört das Feld einem Spieler? wenn nein abbrechen
+                if (lGame[nIndexRow][nIndexCol] !== undefined) {
+                    lUsed.push({nPlayer: lGame[nIndexRow][nIndexCol], nRow: nIndexRow, nCol: nIndexCol});
+                }
+            });
+        });
+        // Zusatzregel 1: Falls dem Gegner zwei gegenüberliegende Ecken gehören und mir die mitte, nicht in Ecke spielen
+        if (lUsed.length === 3 && lGame[1][1] === nCurrentPlayer) {
+            if (lGame[0][0] === 1 - nCurrentPlayer && lGame[2][2] === 1 - nCurrentPlayer) {
+                lScore[0][2] = 0;
+                lScore[2][0] = 0;
+                lScoreOpponent[0][2] = 0;
+                lScoreOpponent[2][0] = 0;
+            }
+            if (lGame[0][2] === 1 - nCurrentPlayer && lGame[2][0] === 1 - nCurrentPlayer) {
+                lScore[0][0] = 0;
+                lScore[2][2] = 0;
+                lScoreOpponent[0][0] = 0;
+                lScoreOpponent[2][2] = 0;
+            }
+        }
+        // Zusatzregel 2: Falls dem Gegner die Mitte und mir eine Ecke gehört, gegenüber spielen
+        if (lUsed.length === 2 && lGame[1][1] === 1 - nCurrentPlayer) {
+            if (lGame[0][0] === nCurrentPlayer) {
+                lScore[2][2] = 1000;
+            }
+            if (lGame[0][2] === nCurrentPlayer) {
+                lScore[2][0] = 1000;
+            }
+            if (lGame[2][0] === nCurrentPlayer) {
+                lScore[0][2] = 1000;
+            }
+            if (lGame[2][2] === nCurrentPlayer) {
+                lScore[0][0] = 1000;
+            }
+        }
+        // Rangliste der Möglichkeiten erstellen
+        var nMyHighScore = 0;
+        lScore.forEach(function (lScoreRow) {
+            lScoreRow.forEach(function (nScoreCol) {
+                if (nScoreCol > nMyHighScore) {
+                    nMyHighScore = nScoreCol;
+                }
+            });
+        });
         lScoreOpponent.forEach(function (lScoreOpponentRow, nIndexRow) {
             lScoreOpponentRow.forEach(function (nScoreOpponentCol, nIndexCol) {
                 if (nScoreOpponentCol !== undefined) {
-                    if (nScoreOpponentCol > lScore[nIndexRow][nIndexCol]) {
+                    if (nScoreOpponentCol > nMyHighScore) {
                         rHighScore.nScore = nScoreOpponentCol;
                     } else {
                         rHighScore.nScore = lScore[nIndexRow][nIndexCol];
@@ -143,19 +192,21 @@
         lHighScore.sort(function (a, b) {
             return b.nScore - a.nScore;
         });
-        console.log(lHighScore);
-        if (lPlayers[nCurrentPlayer] === "easy") {
-            nRandom = Math.min(Math.floor(Math.random() * 3), lHighScore.length - 1);
-            document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
-        }
-        if (lPlayers[nCurrentPlayer] === "medium") {
-            nRandom = Math.min(Math.floor(Math.random() * 2), lHighScore.length - 1);
-            document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
-        }
-        if (lPlayers[nCurrentPlayer] === "hard") {
-            document.querySelectorAll("[data-row='" + lHighScore[0].nRow + "'][data-col='" + lHighScore[0].nCol + "']")[0].click();
-        }
-
+        bWait = true;
+        setTimeout(function () {
+            bWait = false;
+            if (lPlayers[nCurrentPlayer] === "easy") {
+                nRandom = Math.floor(Math.random() * 3);
+                document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
+            }
+            if (lPlayers[nCurrentPlayer] === "medium") {
+                nRandom = Math.floor(Math.random() * 2);
+                document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
+            }
+            if (lPlayers[nCurrentPlayer] === "hard") {
+                document.querySelectorAll("[data-row='" + lHighScore[0].nRow + "'][data-col='" + lHighScore[0].nCol + "']")[0].click();
+            }
+        }, 500);
     }
 
     // Nachricht über Spiel-Grid setzen
@@ -207,7 +258,7 @@
 
     // Click auf ein Panel
     function fClickPanel(event) {
-        if (event.target.nodeName === "DIV") {
+        if (event.target.nodeName === "DIV" && bWait === false) {
             var nRow = event.target.getAttribute("data-row");
             var nCol = event.target.getAttribute("data-col");
             // Panel ist noch leer und Spiel läuft noch
@@ -238,6 +289,7 @@
         document.getElementById("iPopupScore").classList.add("popup-hide");
         nCurrentPlayer = 0;
         fSetMessage(nCurrentPlayer, " begins");
+        fAI();
     }
 
     // zu Spielpanel wechseln
@@ -248,7 +300,6 @@
         document.getElementById("iTitle").classList.add("swipe-out");
         document.getElementById("iGame").classList.add("swipe-in");
         fResetGame();
-        fAI();
     }
 
     // Spiel verlassen
