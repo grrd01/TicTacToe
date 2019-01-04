@@ -145,11 +145,11 @@
         });
         console.log(lHighScore);
         if (lPlayers[nCurrentPlayer] === "easy") {
-            nRandom = Math.floor(Math.random() * 3);
+            nRandom = Math.min(Math.floor(Math.random() * 3), lHighScore.length - 1);
             document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
         }
         if (lPlayers[nCurrentPlayer] === "medium") {
-            nRandom = Math.floor(Math.random() * 2);
+            nRandom = Math.min(Math.floor(Math.random() * 2), lHighScore.length - 1);
             document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
         }
         if (lPlayers[nCurrentPlayer] === "hard") {
