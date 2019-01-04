@@ -10,5 +10,4 @@ grrd's Tic Tac Toe is free, no ads, no in-app purchases.
 * Copyright (c) 2018 Gerard Tyedmers, grrd@gmx.net
 * Licensed under the MPL License
 
-Click here to play:
-<a href="https://grrd01.github.io/TicTacToe/" target="_blank">https://grrd01.github.io/TicTacToe/</a>
+Click here to play: <https://grrd01.github.io/TicTacToe/>
