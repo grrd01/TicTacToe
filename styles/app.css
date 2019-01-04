@@ -157,7 +157,6 @@ body {
         opacity: 0;
     }
     100% {
-        visibility: visible;
         opacity: 1;
     }
 }
@@ -171,6 +170,18 @@ body {
     }
     100% {
         opacity: 0.4;
+    }
+}
+.svg-xo-highlight {
+    animation: 1s xoHighlight;
+    animation-fill-mode: forwards;
+}
+@keyframes xoHighlight {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
     }
 }
 
@@ -202,6 +213,10 @@ body {
 }
 .popup-show {
     animation: 1s fadeIn;
+    animation-fill-mode: forwards;
+}
+.popup-show-draw {
+    animation: 2s fadeInDraw;
     animation-fill-mode: forwards;
 }
 .popup-show-slow {
@@ -240,6 +255,20 @@ body {
          opacity: 1;
          transform: scale(1);
      }
+}
+@keyframes fadeInDraw {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+        transform: scale(0.75);
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 @keyframes fadeOut {
     0% {
