@@ -236,6 +236,7 @@
             });
             Array.from(lGewonnen).forEach(function (rGewonnen) {
                 document.querySelectorAll("[data-row='" + rGewonnen[0] + "'][data-col='" + rGewonnen[1] + "'] > img")[0].classList.remove("svg-xo-dimmed");
+                document.querySelectorAll("[data-row='" + rGewonnen[0] + "'][data-col='" + rGewonnen[1] + "'] > img")[0].classList.add("svg-xo-highlight");
             });
             popupScore.getElementsByClassName("popup-content")[0].innerText = "Player " + (nCurrentPlayer + 1) + " has won!";
             popupScore.getElementsByClassName("popup-content")[1].innerText = "Score: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
@@ -248,7 +249,7 @@
             popupScore.getElementsByClassName("popup-content")[1].innerText = "Score: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
             popupScore.classList.remove("popup-init");
             popupScore.classList.remove("popup-hide");
-            popupScore.classList.add("popup-show-slow");
+            popupScore.classList.add("popup-show-draw");
         } else {
             nCurrentPlayer = 1 - nCurrentPlayer;
             fSetMessage(nCurrentPlayer, " plays");
@@ -286,6 +287,7 @@
             });
         });
         document.getElementById("iPopupScore").classList.remove("popup-show-slow");
+        document.getElementById("iPopupScore").classList.remove("popup-show-draw");
         document.getElementById("iPopupScore").classList.add("popup-hide");
         nCurrentPlayer = 0;
         fSetMessage(nCurrentPlayer, " begins");
@@ -293,7 +295,7 @@
     }
 
     // zu Spielpanel wechseln
-    function fStartGame() {
+    function fStartGame(event) {
         lPlayers[1] = event.target.getAttribute("data-payer2");
         document.getElementById("iTitle").classList.remove("swipe-out-right");
         document.getElementById("iGame").classList.remove("swipe-in-left");
