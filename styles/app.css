@@ -400,7 +400,8 @@ table {
 @media (orientation: landscape) {
     .list-button {
         display: inline-block;
-        width: calc(25vw - 21px);
+        float: left;
+        width: calc(25vw - 17px);
         text-align: center;
     }
     .list-button > div {

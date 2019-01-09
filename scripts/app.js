@@ -1,7 +1,10 @@
-/*
+/**
  * grrd's Tic Tac Toe
  * Copyright (c) 2018 Gerard Tyedmers, grrd@gmx.net
- * Licensed under the MPL License
+ * @license MPL-2.0
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 /*jslint browser:true, long: true, devel: true */
@@ -22,6 +25,7 @@
 
     // aktueller Spieler
     var nCurrentPlayer = 0;
+    var nStartPlayer = 0;
     var lPlayers = ["human", "human"];
     var lImages = ["x.svg", "o.svg"];
     var lGewonnen;
@@ -178,7 +182,8 @@
         lScoreOpponent.forEach(function (lScoreOpponentRow, nIndexRow) {
             lScoreOpponentRow.forEach(function (nScoreOpponentCol, nIndexCol) {
                 if (nScoreOpponentCol !== undefined) {
-                    if (nScoreOpponentCol > nMyHighScore) {
+                    // falls Wert des Feldes für den Gegner grösser ist als mein höchster Wert und ich nicht gewinnen kann, Wert des Gegners übernahmen
+                    if (nScoreOpponentCol > nMyHighScore && nMyHighScore < 37) {
                         rHighScore.nScore = nScoreOpponentCol;
                     } else {
                         rHighScore.nScore = lScore[nIndexRow][nIndexCol];
@@ -289,7 +294,8 @@
         document.getElementById("iPopupScore").classList.remove("popup-show-slow");
         document.getElementById("iPopupScore").classList.remove("popup-show-draw");
         document.getElementById("iPopupScore").classList.add("popup-hide");
-        nCurrentPlayer = 0;
+        nCurrentPlayer = nStartPlayer;
+        nStartPlayer = 1 - nStartPlayer;
         fSetMessage(nCurrentPlayer, " begins");
         fAI();
     }
@@ -297,6 +303,7 @@
     // zu Spielpanel wechseln
     function fStartGame(event) {
         lPlayers[1] = event.target.getAttribute("data-payer2");
+        nStartPlayer = 0;
         document.getElementById("iTitle").classList.remove("swipe-out-right");
         document.getElementById("iGame").classList.remove("swipe-in-left");
         document.getElementById("iTitle").classList.add("swipe-out");
