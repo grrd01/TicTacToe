@@ -1,13 +1,16 @@
-/*
+/**
  * grrd's Tic Tac Toe
  * Copyright (c) 2018 Gerard Tyedmers, grrd@gmx.net
- * Licensed under the MPL License
+ * @license MPL-2.0
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 /*jslint devel: true, browser: true, long: true */ /*global self fetch */
 
 var CACHE_NAME = "grrds-tictactoe-cache";
-var CACHE_VERSION = "v1.5";
+var CACHE_VERSION = "v1.6";
 var CACHE = CACHE_NAME + "-" + CACHE_VERSION;
 
 var urlsToCache = [
