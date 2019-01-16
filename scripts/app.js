@@ -124,6 +124,11 @@
         var rHighScore = {nScore: -1, nRow: undefined, nCol: undefined};
         var lHighScore = [];
         var nRandom;
+        var nBest;
+        var nSecond;
+        var nAnzBest;
+        var nAnzSecond;
+        var nPlay;
         var lUsed = [];
         // Wert der Felder für aktuellen Spieler ermitteln
         var lScore = fAIscore();
@@ -197,21 +202,43 @@
         lHighScore.sort(function (a, b) {
             return b.nScore - a.nScore;
         });
-        bWait = true;
-        setTimeout(function () {
-            bWait = false;
-            if (lPlayers[nCurrentPlayer] === "easy") {
-                nRandom = Math.min(Math.floor(Math.random() * 3), lHighScore.length - 1);
-                document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
-            }
-            if (lPlayers[nCurrentPlayer] === "medium") {
-                nRandom = Math.min(Math.floor(Math.random() * 2), lHighScore.length - 1);
-                document.querySelectorAll("[data-row='" + lHighScore[nRandom].nRow + "'][data-col='" + lHighScore[nRandom].nCol + "']")[0].click();
-            }
-            if (lPlayers[nCurrentPlayer] === "hard") {
-                document.querySelectorAll("[data-row='" + lHighScore[0].nRow + "'][data-col='" + lHighScore[0].nCol + "']")[0].click();
-            }
-        }, 500);
+        if (lPlayers[nCurrentPlayer] !== "human") {
+            // falls jetzt Computer dran ist
+            bWait = true;
+            setTimeout(function () {
+                bWait = false;
+                if (lPlayers[nCurrentPlayer] === "easy") {
+                    // 0 oder 1 zu 50%
+                    nRandom = Math.min(Math.floor(Math.random() * 2), lHighScore.length - 1);
+                }
+                if (lPlayers[nCurrentPlayer] === "medium") {
+                    // 0 oder 1 zu 66% / 33%
+                    nRandom = Math.floor(Math.random() * 3);
+                    if (nRandom > 0) {
+                        nRandom -= 1;
+                    }
+                    nRandom = Math.min(nRandom, lHighScore.length - 1);
+                }
+                if (lPlayers[nCurrentPlayer] === "hard") {
+                    nRandom = 0;
+                }
+                // Falls mehrere Felder die gleiche Wertung haben, zufällig eines davon auswählen
+                nBest = lHighScore[0].nScore;
+                nAnzBest = lHighScore.filter((rHighScore) => rHighScore.nScore >= nBest).length;
+                if (lHighScore.filter((rHighScore) => rHighScore.nScore < nBest).length > 0) {
+                    nSecond = lHighScore.filter((rHighScore) => rHighScore.nScore < nBest)[0].nScore;
+                } else {
+                    nSecond = nBest;
+                }
+                nAnzSecond = lHighScore.filter((rHighScore) => rHighScore.nScore >= nSecond).length;
+                if (nRandom === 0) {
+                    nPlay = Math.floor(Math.random() * nAnzBest);
+                } else {
+                    nPlay = Math.floor(Math.random() * nAnzSecond);
+                }
+                document.querySelectorAll("[data-row='" + lHighScore[nPlay].nRow + "'][data-col='" + lHighScore[nPlay].nCol + "']")[0].click();
+            }, 500);
+        }
     }
 
     // Nachricht über Spiel-Grid setzen
