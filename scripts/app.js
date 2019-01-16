@@ -208,13 +208,17 @@
             setTimeout(function () {
                 bWait = false;
                 if (lPlayers[nCurrentPlayer] === "easy") {
-                    // 0 oder 1 zu 50%
-                    nRandom = Math.min(Math.floor(Math.random() * 2), lHighScore.length - 1);
+                    // 0 oder 1 zu 33% / 66%
+                    nRandom = Math.floor(Math.random() * 3);
+                    if (nRandom > 1) {
+                        nRandom = 1;
+                    }
+                    nRandom = Math.min(nRandom, lHighScore.length - 1);
                 }
                 if (lPlayers[nCurrentPlayer] === "medium") {
                     // 0 oder 1 zu 66% / 33%
                     nRandom = Math.floor(Math.random() * 3);
-                    if (nRandom > 0) {
+                    if (nRandom > 1) {
                         nRandom -= 1;
                     }
                     nRandom = Math.min(nRandom, lHighScore.length - 1);
