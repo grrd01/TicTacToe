@@ -175,6 +175,22 @@
                 lScore[0][0] = 1000;
             }
         }
+        // Zusatzregel 3: Falls dem Gegner die Mitte und eine Ecke und mir die gegenüberliegende Ecke gehört, nicht in Rand Mitte spielen
+        if (lPlayers[nCurrentPlayer] === "hard" && lUsed.length === 3 && lGame[1][1] === 1 - nCurrentPlayer && (
+            (lGame[0][0] === nCurrentPlayer && lGame[2][2] === 1 - nCurrentPlayer) ||
+            (lGame[0][2] === nCurrentPlayer && lGame[2][0] === 1 - nCurrentPlayer) ||
+            (lGame[2][0] === nCurrentPlayer && lGame[0][2] === 1 - nCurrentPlayer) ||
+            (lGame[2][2] === nCurrentPlayer && lGame[0][0] === 1 - nCurrentPlayer)
+        )) {
+            lScore[0][1] = 0;
+            lScore[1][0] = 0;
+            lScore[1][2] = 0;
+            lScore[2][1] = 0;
+            lScoreOpponent[0][1] = 0;
+            lScoreOpponent[1][0] = 0;
+            lScoreOpponent[1][2] = 0;
+            lScoreOpponent[2][1] = 0;
+        }
         // Rangliste der Möglichkeiten erstellen
         var nMyHighScore = 0;
         lScore.forEach(function (lScoreRow) {
@@ -208,11 +224,8 @@
             setTimeout(function () {
                 bWait = false;
                 if (lPlayers[nCurrentPlayer] === "easy") {
-                    // 0 oder 1 zu 33% / 66%
-                    nRandom = Math.floor(Math.random() * 3);
-                    if (nRandom > 1) {
-                        nRandom = 1;
-                    }
+                    // 1 zu 100%
+                    nRandom = 1;
                     nRandom = Math.min(nRandom, lHighScore.length - 1);
                 }
                 if (lPlayers[nCurrentPlayer] === "medium") {
