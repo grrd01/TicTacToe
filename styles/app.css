@@ -124,23 +124,33 @@ body {
 }
 .grid-item, .list-button, .mini-button, .close-button {
     border:  1px transparent;
-    border-radius: 2vmin;
-    box-shadow: 0 0 0.5vmin 2px #000;
-    background-image: linear-gradient(#333, #444 35%, #222 100%), linear-gradient(#bbb, #444 8%, #111 100%);
+    background-image: linear-gradient(#444,#2d2d2d), linear-gradient(#999, #444 10px, #111 100%);
     background-origin: border-box;
     background-clip: content-box, border-box;
-    padding: 2px;
-    margin: 5px;
     cursor: pointer;
+}
+.grid-item, .mini-button, .close-button {
+    box-shadow: 0 0 0.5vmin 2px #111;
+    border-radius: 10px;
+    padding: 1px;
+    margin: 5px;
+}
+nav {
+    margin: 5px;
+    border-radius:10px;
+    box-shadow: 0 0 0.5vmin 2px #111;
+    background-color: #111;
 }
 .grid-item {
     height: calc(33vmin - 18px);
+    border-radius: 2vmin;
+    background-image: linear-gradient(#444,#2d2d2d), linear-gradient(#999, #444 2vmin, #111 100%);
 }
 .grid-item:hover, .list-button:hover, .mini-button:hover, .close-button:hover {
-    background-image: linear-gradient(#444, #555 35%, #333 100%), linear-gradient(#ccc, #555 8%, #222 100%);
+    background-image: linear-gradient(#555555, #383838), linear-gradient(#ccc, #555 10px, #222 100%);
 }
 .grid-item:active, .list-button:active, .mini-button:active, .close-button:active {
-    background-image: linear-gradient(#393939, #111 35%, #292929 100%), linear-gradient(#222, #111 92%, #888 100%);
+    background-image: linear-gradient(#202020, #2c2c2c), linear-gradient(#222, #111 calc(100% - 10px), #aaa 100%);
 }
 .grid-item:active > img{
     margin-top: 0.1em;
@@ -320,10 +330,10 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 0.5vmin 2px #000;
     text-shadow: 1px 1px 2px #500000;
-    background-image: linear-gradient(#de0139, #ff0142 35%, #830110 100%), linear-gradient(#ffbabc, #e33a33 8%, #55010a 100%);
+    background-image: linear-gradient(#ff0142, #830110), linear-gradient(#ffbabc, #e33a33 12px, #55010a 100%);
     background-origin: border-box;
     background-clip: content-box, border-box;
-    padding: 2px;
+    padding: 1px;
     height: 40px;
     width: 100px;
     margin: 5px;
@@ -332,16 +342,19 @@ body {
     font-weight: bold;
 }
 .button:hover {
-    background-image: linear-gradient(#ee1149, #ff2162 35%, #931120 100%), linear-gradient(#ffcacc, #f34a43 8%, #65111a 100%);
+    background-image: linear-gradient(#ff2162, #931120), linear-gradient(#ffcacc, #f34a43 12px, #65111a 100%);
 }
 .button:active {
-    background-image: linear-gradient(#830110, #ff0142 35%, #de0139 100%), linear-gradient(#55010a, #e33a33 92%, #ffbabc 100%);;
+    background-image: linear-gradient(#830110, #de0139), linear-gradient(#55010a, #e33a33 calc(100% - 12px), #ffbabc 100%);;
 }
 .button-span {
-    margin-top: 10px;
+    margin-top: 8px;
 }
 .button-span:active {
-    margin-top: 12px;
+    margin-top: 10px;
+}
+.button-span > img {
+    margin-bottom: -3px;
 }
 .mini-button {
     border-radius: 10px;
@@ -400,9 +413,21 @@ table {
 @media (orientation: landscape) {
     .list-button {
         display: inline-block;
-        float: left;
-        width: calc(25vw - 17px);
+        width: calc(25vw - 6.5px);
         text-align: center;
+        padding: 1px 0 1px 0;
+        margin-left: 1px;
+    }
+    .list-button:first-child {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        padding: 1px 0 1px 1px;
+        margin-left: 0;
+    }
+    .list-button:last-child {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        padding: 1px 1px 1px 0;
     }
     .list-button > div {
         margin-top: 20px;
@@ -422,6 +447,16 @@ table {
     }
     .list-button {
         max-height: calc(23vh - 17px - 5.5vw);
+        padding: 1px 0 1px 0;
+    }
+    .list-button:first-child {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 1px 1px 1px 1px;
+    }
+    .list-button:last-child {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
     .list-button > div {
         display: inline;

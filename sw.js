@@ -4,13 +4,13 @@
  * @license MPL-2.0
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
 /*jslint devel: true, browser: true, long: true */ /*global self fetch */
 
 var CACHE_NAME = "grrds-tictactoe-cache";
-var CACHE_VERSION = "v1.8";
+var CACHE_VERSION = "v1.9";
 var CACHE = CACHE_NAME + "-" + CACHE_VERSION;
 
 var urlsToCache = [
@@ -26,6 +26,7 @@ var urlsToCache = [
     "images/mail.svg",
     "images/medium.svg",
     "images/o.svg",
+    "images/ok.svg",
     "images/puzzle.svg",
     "images/ttt1.svg",
     "images/ttt2.svg",
