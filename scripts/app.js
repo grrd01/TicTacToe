@@ -12,6 +12,64 @@
 (function () {
     "use strict";
 
+    // Localization
+    var nLang = 0;
+    var lLoc = [{
+        players: "2 Players",
+        easy: "Easy",
+        medium: "Medium",
+        hard: "Hard",
+        instr: "Who is the first to get 3 fields in a line?",
+        dev: "Developed by Gérard Tyedmers.",
+        puzzle: "Don't miss",
+        dice: "Have a look at",
+        row: "Try",
+        begin: "begins",
+        play: "plays",
+        win: "wins",
+        draw: "draw",
+        player: "Player",
+        won: "has won!",
+        score: "Score:",
+        draw2: "This game ends in a draw."
+    }, {
+        players: "2 Spieler",
+        easy: "Einfach",
+        medium: "Mittel",
+        hard: "Schwierig",
+        instr: "Wer besetzt zuerst drei Felder in einer Linie?",
+        dev: "Entwickelt von Gérard Tyedmers.",
+        puzzle: "Probier auch",
+        dice: "oder",
+        row: "und",
+        begin: "beginnt",
+        play: "spielt",
+        win: "gewinnt",
+        draw: "unentschieden",
+        player: "Spieler",
+        won: "hat gewonnen!",
+        score: "Resultat:",
+        draw2: "Diese Partie endet unentschieden."
+    }, {
+        players: "2 Joueurs",
+        easy: "Facile",
+        medium: "Moyen",
+        hard: "Dur",
+        instr: "Qui est le premier à obtenir 3 champs dans une ligne?",
+        dev: "Développé par Gérard Tyedmers.",
+        puzzle: "Ne manquez pas",
+        dice: "Jetez un coup d'oeil à",
+        row: "Essayez ",
+        begin: "commence",
+        play: "joue",
+        win: "gagne",
+        draw: "nul",
+        player: "Joueur",
+        won: "a gagné!",
+        score: "Résultat:",
+        draw2: "Ce jeu se termine par un match nul."
+    }];
+
     // Spielfeld
     const nRows = 3;
     const nCols = 3;
@@ -279,7 +337,7 @@
         var popupScore = document.getElementById("iPopupScore");
         if (fCheckGewonnen()) {
             lAnzGewonnen[nCurrentPlayer] += 1;
-            fSetMessage(nCurrentPlayer, " wins");
+            fSetMessage(nCurrentPlayer, " " + lLoc[nLang].win);
             Array.from(document.getElementsByClassName("svg-xo")).forEach(function (rSVG) {
                 rSVG.classList.add("svg-xo-dimmed");
             });
@@ -287,21 +345,21 @@
                 document.querySelectorAll("[data-row='" + rGewonnen[0] + "'][data-col='" + rGewonnen[1] + "'] > img")[0].classList.remove("svg-xo-dimmed");
                 document.querySelectorAll("[data-row='" + rGewonnen[0] + "'][data-col='" + rGewonnen[1] + "'] > img")[0].classList.add("svg-xo-highlight");
             });
-            popupScore.getElementsByClassName("popup-content")[0].innerText = "Player " + (nCurrentPlayer + 1) + " has won!";
-            popupScore.getElementsByClassName("popup-content")[1].innerText = "Score: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
+            popupScore.getElementsByClassName("popup-content")[0].innerText = lLoc[nLang].player + " " + (nCurrentPlayer + 1) + " " + lLoc[nLang].won;
+            popupScore.getElementsByClassName("popup-content")[1].innerText = lLoc[nLang].score + " " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
             popupScore.classList.remove("popup-init");
             popupScore.classList.remove("popup-hide");
             popupScore.classList.add("popup-show-slow");
         } else if (lGame.findIndex((x) => x.includes(undefined)) < 0) {
-            fSetMessage(undefined, "Draw");
-            popupScore.getElementsByClassName("popup-content")[0].innerText = "This game ends in a draw.";
-            popupScore.getElementsByClassName("popup-content")[1].innerText = "Score: " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
+            fSetMessage(undefined, lLoc[nLang].draw);
+            popupScore.getElementsByClassName("popup-content")[0].innerText = lLoc[nLang].draw2;
+            popupScore.getElementsByClassName("popup-content")[1].innerText = lLoc[nLang].score + " " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
             popupScore.classList.remove("popup-init");
             popupScore.classList.remove("popup-hide");
             popupScore.classList.add("popup-show-draw");
         } else {
             nCurrentPlayer = 1 - nCurrentPlayer;
-            fSetMessage(nCurrentPlayer, " plays");
+            fSetMessage(nCurrentPlayer, " " + lLoc[nLang].play);
             fAI();
         }
     }
@@ -340,7 +398,7 @@
         document.getElementById("iPopupScore").classList.add("popup-hide");
         nCurrentPlayer = nStartPlayer;
         nStartPlayer = 1 - nStartPlayer;
-        fSetMessage(nCurrentPlayer, " begins");
+        fSetMessage(nCurrentPlayer, " " + lLoc[nLang].begin);
         fAI();
     }
 
@@ -376,9 +434,38 @@
         document.getElementById("iPopupInfo").classList.add("popup-hide");
     }
 
-    function fInit() {
-        // ServiceWorker initialisieren
+    function urlQuery(query) {
+        query = query.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var expr = "[\\?&]" + query + "=([^&#]*)";
+        var regex = new RegExp(expr);
+        var results = regex.exec(window.location.href);
+        if (results !== null) {
+            return results[1];
+        } else {
+            return false;
+        }
+    }
 
+    function fInit() {
+        // Localize
+        // Example usage - https://grrd01.github.io/TicTacToe/?lang=en
+        const cLang = (urlQuery("lang") || navigator.language || navigator.browserLanguage || (navigator.languages || ["en"])[0]).substring(0, 2).toLowerCase();
+        if (cLang === "de") {
+            nLang = 1;
+        } else if (cLang === "fr") {
+            nLang = 2;
+        }
+        document.getElementById("i2Players").childNodes[2].innerHTML = lLoc[nLang].players.replace(/ /g, '\u00a0');
+        document.getElementById("iEasy").childNodes[2].innerHTML = lLoc[nLang].easy;
+        document.getElementById("iMedium").childNodes[2].innerHTML = lLoc[nLang].medium;
+        document.getElementById("iHard").childNodes[2].innerHTML = lLoc[nLang].hard;
+        document.getElementById("iInfoBody").childNodes[1].innerHTML = lLoc[nLang].instr;
+        document.getElementById("iInfoBody").childNodes[5].innerHTML = lLoc[nLang].dev;
+        document.getElementById("iPuzzle").innerHTML = lLoc[nLang].puzzle;
+        document.getElementById("iDice").innerHTML = lLoc[nLang].dice;
+        document.getElementById("iRow").innerHTML = lLoc[nLang].row;
+        
+        // ServiceWorker initialisieren
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function () {
                 navigator.serviceWorker.register("sw.js").then(function (registration) {
