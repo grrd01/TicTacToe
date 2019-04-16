@@ -455,12 +455,12 @@
         } else if (cLang === "fr") {
             nLang = 2;
         }
-        document.getElementById("i2Players").childNodes[2].innerHTML = lLoc[nLang].players.replace(/ /g, '\u00a0');
-        document.getElementById("iEasy").childNodes[2].innerHTML = lLoc[nLang].easy;
-        document.getElementById("iMedium").childNodes[2].innerHTML = lLoc[nLang].medium;
-        document.getElementById("iHard").childNodes[2].innerHTML = lLoc[nLang].hard;
-        document.getElementById("iInfoBody").childNodes[1].innerHTML = lLoc[nLang].instr;
-        document.getElementById("iInfoBody").childNodes[5].innerHTML = lLoc[nLang].dev;
+        document.getElementById("i2Players").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].players.replace(/ /g, '\u00a0');
+        document.getElementById("iEasy").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].easy;
+        document.getElementById("iMedium").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].medium;
+        document.getElementById("iHard").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].hard;
+        document.getElementById("iInfoBody").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].instr;
+        document.getElementById("iInfoBody").getElementsByTagName("div")[2].innerHTML = lLoc[nLang].dev;
         document.getElementById("iPuzzle").innerHTML = lLoc[nLang].puzzle;
         document.getElementById("iDice").innerHTML = lLoc[nLang].dice;
         document.getElementById("iRow").innerHTML = lLoc[nLang].row;
