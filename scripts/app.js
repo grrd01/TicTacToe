@@ -15,6 +15,7 @@
     // Localization
     var nLang = 0;
     var lLoc = [{
+        desc: "grrd's Tic Tac Toe is a HTML5 Game that works offline",
         players: "2 Players",
         easy: "Easy",
         medium: "Medium",
@@ -33,6 +34,7 @@
         score: "Score:",
         draw2: "This game ends in a draw."
     }, {
+        desc: "grrd's Tic Tac Toe ist ein HTML5 Spiel, welches offline funktioniert",
         players: "2 Spieler",
         easy: "Einfach",
         medium: "Mittel",
@@ -51,6 +53,7 @@
         score: "Resultat:",
         draw2: "Diese Partie endet unentschieden."
     }, {
+        desc: "grrd's Tic Tac Toe est un jeu HTML5 qui fonctionne hors ligne",
         players: "2 Joueurs",
         easy: "Facile",
         medium: "Moyen",
@@ -450,6 +453,7 @@
         // Localize
         // Example usage - https://grrd01.github.io/TicTacToe/?lang=en
         const cLang = (urlQuery("lang") || navigator.language || navigator.browserLanguage || (navigator.languages || ["en"])[0]).substring(0, 2).toLowerCase();
+        document.documentElement.setAttribute('lang', cLang);
         if (cLang === "de") {
             nLang = 1;
         } else if (cLang === "fr") {
@@ -464,6 +468,7 @@
         document.getElementById("iPuzzle").innerHTML = lLoc[nLang].puzzle;
         document.getElementById("iDice").innerHTML = lLoc[nLang].dice;
         document.getElementById("iRow").innerHTML = lLoc[nLang].row;
+        document.querySelector('meta[name="description"]').setAttribute("content", lLoc[nLang].desc);
         
         // ServiceWorker initialisieren
         if ("serviceWorker" in navigator) {
