@@ -14,7 +14,7 @@
 
     // Localization
     var nLang = 0;
-    var lLoc = [{
+    const lLoc = [{
         desc: "grrd's Tic Tac Toe is a HTML5 Game that works offline",
         players: "2 Players",
         easy: "Easy",
@@ -92,6 +92,15 @@
     var lGewonnen;
     var lAnzGewonnen = [0, 0];
     var bWait = false;
+
+    var $ = function (id) {
+        return document.getElementById(id);
+    };
+    var iPopupInfo = $("iPopupInfo");
+    var iPopupScore = $("iPopupScore");
+    var iTitle = $("iTitle");
+    var iGame = $("iGame");
+    var iInfoBody = $("iInfoBody");
 
     function fCheckGewonnen() {
         // Richtungen zum Prüfen auf Sieg: - | \ /
@@ -321,7 +330,7 @@
 
     // Nachricht über Spiel-Grid setzen
     function fSetMessage(nPlayer, cMsg) {
-        var eMessage = document.getElementById("iMessage");
+        var eMessage = $("iMessage");
         while (eMessage.firstChild) {
             eMessage.removeChild(eMessage.firstChild);
         }
@@ -337,7 +346,6 @@
 
     // hat jemand gewonnen? endet das spiel unentschieden?
     function fCheckGame() {
-        var popupScore = document.getElementById("iPopupScore");
         if (fCheckGewonnen()) {
             lAnzGewonnen[nCurrentPlayer] += 1;
             fSetMessage(nCurrentPlayer, " " + lLoc[nLang].win);
@@ -348,18 +356,18 @@
                 document.querySelectorAll("[data-row='" + rGewonnen[0] + "'][data-col='" + rGewonnen[1] + "'] > img")[0].classList.remove("svg-xo-dimmed");
                 document.querySelectorAll("[data-row='" + rGewonnen[0] + "'][data-col='" + rGewonnen[1] + "'] > img")[0].classList.add("svg-xo-highlight");
             });
-            popupScore.getElementsByClassName("popup-content")[0].innerText = lLoc[nLang].player + " " + (nCurrentPlayer + 1) + " " + lLoc[nLang].won;
-            popupScore.getElementsByClassName("popup-content")[1].innerText = lLoc[nLang].score + " " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
-            popupScore.classList.remove("popup-init");
-            popupScore.classList.remove("popup-hide");
-            popupScore.classList.add("popup-show-slow");
+            iPopupScore.getElementsByClassName("popup-content")[0].innerText = lLoc[nLang].player + " " + (nCurrentPlayer + 1) + " " + lLoc[nLang].won;
+            iPopupScore.getElementsByClassName("popup-content")[1].innerText = lLoc[nLang].score + " " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
+            iPopupScore.classList.remove("popup-init");
+            iPopupScore.classList.remove("popup-hide");
+            iPopupScore.classList.add("popup-show-slow");
         } else if (lGame.findIndex((x) => x.includes(undefined)) < 0) {
             fSetMessage(undefined, lLoc[nLang].draw);
-            popupScore.getElementsByClassName("popup-content")[0].innerText = lLoc[nLang].draw2;
-            popupScore.getElementsByClassName("popup-content")[1].innerText = lLoc[nLang].score + " " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
-            popupScore.classList.remove("popup-init");
-            popupScore.classList.remove("popup-hide");
-            popupScore.classList.add("popup-show-draw");
+            iPopupScore.getElementsByClassName("popup-content")[0].innerText = lLoc[nLang].draw2;
+            iPopupScore.getElementsByClassName("popup-content")[1].innerText = lLoc[nLang].score + " " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
+            iPopupScore.classList.remove("popup-init");
+            iPopupScore.classList.remove("popup-hide");
+            iPopupScore.classList.add("popup-show-draw");
         } else {
             nCurrentPlayer = 1 - nCurrentPlayer;
             fSetMessage(nCurrentPlayer, " " + lLoc[nLang].play);
@@ -396,9 +404,9 @@
                 lGame[nIndexRow][nIndexCol] = undefined;
             });
         });
-        document.getElementById("iPopupScore").classList.remove("popup-show-slow");
-        document.getElementById("iPopupScore").classList.remove("popup-show-draw");
-        document.getElementById("iPopupScore").classList.add("popup-hide");
+        iPopupScore.classList.remove("popup-show-slow");
+        iPopupScore.classList.remove("popup-show-draw");
+        iPopupScore.classList.add("popup-hide");
         nCurrentPlayer = nStartPlayer;
         nStartPlayer = 1 - nStartPlayer;
         fSetMessage(nCurrentPlayer, " " + lLoc[nLang].begin);
@@ -409,10 +417,10 @@
     function fStartGame(event) {
         lPlayers[1] = event.target.getAttribute("data-payer2");
         nStartPlayer = 0;
-        document.getElementById("iTitle").classList.remove("swipe-out-right");
-        document.getElementById("iGame").classList.remove("swipe-in-left");
-        document.getElementById("iTitle").classList.add("swipe-out");
-        document.getElementById("iGame").classList.add("swipe-in");
+        iTitle.classList.remove("swipe-out-right");
+        iGame.classList.remove("swipe-in-left");
+        iTitle.classList.add("swipe-out");
+        iGame.classList.add("swipe-in");
         fResetGame();
     }
 
@@ -420,21 +428,21 @@
     function fQuitGame() {
         fResetGame();
         lAnzGewonnen = [0, 0];
-        document.getElementById("iTitle").classList.remove("swipe-out");
-        document.getElementById("iGame").classList.remove("swipe-in");
-        document.getElementById("iTitle").classList.add("swipe-out-right");
-        document.getElementById("iGame").classList.add("swipe-in-left");
+        iTitle.classList.remove("swipe-out");
+        iGame.classList.remove("swipe-in");
+        iTitle.classList.add("swipe-out-right");
+        iGame.classList.add("swipe-in-left");
     }
 
     // Popup Info
     function fShowPopupInfo() {
-        document.getElementById("iPopupInfo").classList.remove("popup-init");
-        document.getElementById("iPopupInfo").classList.remove("popup-hide");
-        document.getElementById("iPopupInfo").classList.add("popup-show");
+        iPopupInfo.classList.remove("popup-init");
+        iPopupInfo.classList.remove("popup-hide");
+        iPopupInfo.classList.add("popup-show");
     }
     function fHidePopupInfo() {
-        document.getElementById("iPopupInfo").classList.remove("popup-show");
-        document.getElementById("iPopupInfo").classList.add("popup-hide");
+        iPopupInfo.classList.remove("popup-show");
+        iPopupInfo.classList.add("popup-hide");
     }
 
     function urlQuery(query) {
@@ -453,23 +461,23 @@
         // Localize
         // Example usage - https://grrd01.github.io/TicTacToe/?lang=en
         const cLang = (urlQuery("lang") || navigator.language || navigator.browserLanguage || (navigator.languages || ["en"])[0]).substring(0, 2).toLowerCase();
-        document.documentElement.setAttribute('lang', cLang);
+        document.documentElement.setAttribute("lang", cLang);
         if (cLang === "de") {
             nLang = 1;
         } else if (cLang === "fr") {
             nLang = 2;
         }
-        document.getElementById("i2Players").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].players.replace(/ /g, '\u00a0');
-        document.getElementById("iEasy").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].easy;
-        document.getElementById("iMedium").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].medium;
-        document.getElementById("iHard").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].hard;
-        document.getElementById("iInfoBody").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].instr;
-        document.getElementById("iInfoBody").getElementsByTagName("div")[2].innerHTML = lLoc[nLang].dev;
-        document.getElementById("iPuzzle").innerHTML = lLoc[nLang].puzzle;
-        document.getElementById("iDice").innerHTML = lLoc[nLang].dice;
-        document.getElementById("iRow").innerHTML = lLoc[nLang].row;
-        document.querySelector('meta[name="description"]').setAttribute("content", lLoc[nLang].desc);
-        
+        $("i2Players").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].players.replace(/\s/g, "\u00a0");
+        $("iEasy").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].easy;
+        $("iMedium").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].medium;
+        $("iHard").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].hard;
+        iInfoBody.getElementsByTagName("div")[0].innerHTML = lLoc[nLang].instr;
+        iInfoBody.getElementsByTagName("div")[2].innerHTML = lLoc[nLang].dev;
+        $("iPuzzle").innerHTML = lLoc[nLang].puzzle;
+        $("iDice").innerHTML = lLoc[nLang].dice;
+        $("iRow").innerHTML = lLoc[nLang].row;
+        document.querySelector("meta[name='description']").setAttribute("content", lLoc[nLang].desc);
+
         // ServiceWorker initialisieren
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function () {
@@ -493,16 +501,16 @@
         });
 
         // Click-Handler auf die Buttons & Panels legen
-        document.getElementById("iInfo").addEventListener("click", fShowPopupInfo);
-        document.getElementById("iInfoClose").addEventListener("click", fHidePopupInfo);
+        $("iInfo").addEventListener("click", fShowPopupInfo);
+        $("iInfoClose").addEventListener("click", fHidePopupInfo);
         Array.from(document.getElementsByClassName("list-button")).forEach(function (rButton) {
             rButton.addEventListener("click", fStartGame);
         });
-        document.getElementById("iClose").addEventListener("click", fQuitGame);
+        $("iClose").addEventListener("click", fQuitGame);
         Array.from(lPanel).forEach(function (rPanel) {
             rPanel.addEventListener("click", fClickPanel);
         });
-        document.getElementById("iOK").addEventListener("click", fResetGame);
+        $("iOK").addEventListener("click", fResetGame);
     }
 
     fInit();
