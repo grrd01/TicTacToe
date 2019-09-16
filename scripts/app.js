@@ -461,11 +461,13 @@
         // Localize
         // Example usage - https://grrd01.github.io/TicTacToe/?lang=en
         const cLang = (urlQuery("lang") || navigator.language || navigator.browserLanguage || (navigator.languages || ["en"])[0]).substring(0, 2).toLowerCase();
-        document.documentElement.setAttribute("lang", cLang);
         if (cLang === "de") {
             nLang = 1;
         } else if (cLang === "fr") {
             nLang = 2;
+        }
+        if (nLang) {
+            document.documentElement.setAttribute("lang", cLang);
         }
         $("i2Players").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].players.replace(/\s/g, "\u00a0");
         $("iEasy").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].easy;
