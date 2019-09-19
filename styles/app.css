@@ -363,9 +363,18 @@ nav {
     margin: 0 auto 0 auto;
     padding-top: 20px;
     height: 100%;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
     background-color: rgba(0, 0, 0, 0.4);
+}
+@supports (-webkit-overflow-scrolling: touch) {
+    .overflow {
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+@supports not (-webkit-overflow-scrolling: touch) {
+    .overflow {
+        overflow-y: auto;
+    }
 }
 .buffer {
     height: 40px;
