@@ -31,7 +31,6 @@ module.exports = function(grunt) {
             }
         },
         svgmin: {
-            // ><feDropShadow dx="2" dy="2" stdDeviation="3"/></filter>
             options: {
                 plugins: [
                     {removeUnknownsAndDefaults: false},

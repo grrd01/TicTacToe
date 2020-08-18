@@ -1,10 +1,5 @@
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="108px" height="71px" viewBox="-50 -5 257 170" stroke="white" stroke-width="10"  fill="none" >
-  <defs>
-    <filter id="shadow">
-      <feDropShadow dx="2" dy="2" stdDeviation="3"/>
-    </filter>
-  </defs>
-  <g filter="url(#shadow)">
+  <g>
     <g transform="scale(0.9, 0.9) translate(-45 0)">
       <ellipse cx="75" cy="72" rx="47" ry="59" transform="rotate(-5)"   />
       <ellipse cx="70" cy="56" rx="7" ry="11" stroke="none" fill="white" transform="rotate(-2)"/>

@@ -1,10 +1,5 @@
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="280px" height="280px" viewBox="0 0 280 280" stroke="#fff" stroke-linecap="round" stroke-width="11" fill="none" >
-  <defs>
-    <filter id="shadow">
-      <feDropShadow dx="2" dy="2" stdDeviation="3"/>
-    </filter>
-  </defs>
-  <g filter="url(#shadow)">
+  <g>
     <line x1="90" y1="10" x2="90" y2="260" />
     <line x1="180" y1="10" x2="180" y2="260" />
     <line y1="90" x1="10" y2="90" x2="260" />

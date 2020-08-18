@@ -454,6 +454,7 @@ a:active {
 }
 .w60 {
     width: 60px;
+    max-width: 20vw;
 }
 .w25 {
     width: calc(25% - 4px);
@@ -464,6 +465,9 @@ table {
 }
 #tLinks tr {
     height: 65px;
+}
+.shadow {
+    filter: drop-shadow( 2px 2px 2px #111);
 }
 
 @media (orientation: landscape) {
