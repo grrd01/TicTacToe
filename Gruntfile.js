@@ -49,6 +49,7 @@ module.exports = function(grunt) {
                     {'../../2_Build/TicTacToe/images/info.svg': 'images/info.svg'},
                     {'../../2_Build/TicTacToe/images/mail.svg': 'images/mail.svg'},
                     {'../../2_Build/TicTacToe/images/medium.svg': 'images/medium.svg'},
+                    {'../../2_Build/TicTacToe/images/memo.svg': 'images/memo.svg'},
                     {'../../2_Build/TicTacToe/images/o.svg': 'images/o.svg'},
                     {'../../2_Build/TicTacToe/images/ok.svg': 'images/ok.svg'},
                     {'../../2_Build/TicTacToe/images/puzzle.svg': 'images/puzzle.svg'},

@@ -22,9 +22,7 @@
         hard: "Hard",
         instr: "Who is the first to get 3 fields in a line?",
         dev: "Developed by Gérard Tyedmers.",
-        puzzle: "Don't miss",
-        dice: "Have a look at",
-        row: "Try",
+        puzzle: "Have a look at my other games:",
         begin: "begins",
         play: "plays",
         win: "wins",
@@ -41,9 +39,7 @@
         hard: "Schwierig",
         instr: "Wer besetzt zuerst drei Felder in einer Linie?",
         dev: "Entwickelt von Gérard Tyedmers.",
-        puzzle: "Probier auch",
-        dice: "oder",
-        row: "und",
+        puzzle: "Schau dir auch meine anderen Spiele an:",
         begin: "beginnt",
         play: "spielt",
         win: "gewinnt",
@@ -60,9 +56,7 @@
         hard: "Dur",
         instr: "Qui est le premier à obtenir 3 champs dans une ligne?",
         dev: "Développé par Gérard Tyedmers.",
-        puzzle: "Ne manquez pas",
-        dice: "Jetez un coup d'oeil à",
-        row: "Essayez ",
+        puzzle: "Regardez aussi mes autres jeux:",
         begin: "commence",
         play: "joue",
         win: "gagne",
@@ -473,11 +467,9 @@
         $("iEasy").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].easy;
         $("iMedium").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].medium;
         $("iHard").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].hard;
-        iInfoBody.getElementsByTagName("div")[0].innerHTML = lLoc[nLang].instr;
-        iInfoBody.getElementsByTagName("div")[2].innerHTML = lLoc[nLang].dev;
+        iInfoBody.getElementsByTagName("p")[0].innerHTML = lLoc[nLang].instr;
+        iInfoBody.getElementsByTagName("p")[1].innerHTML = lLoc[nLang].dev;
         $("iPuzzle").innerHTML = lLoc[nLang].puzzle;
-        $("iDice").innerHTML = lLoc[nLang].dice;
-        $("iRow").innerHTML = lLoc[nLang].row;
         document.querySelector("meta[name='description']").setAttribute("content", lLoc[nLang].desc);
 
         // ServiceWorker initialisieren
