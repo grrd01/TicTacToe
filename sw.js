@@ -10,7 +10,7 @@
 /*jslint devel: true, browser: true, long: true */ /*global self fetch */
 
 var CACHE_NAME = "grrds-tictactoe-cache";
-var CACHE_VERSION = "v1.14";
+var CACHE_VERSION = "v1.15";
 var CACHE = CACHE_NAME + "-" + CACHE_VERSION;
 
 var urlsToCache = [
@@ -25,6 +25,7 @@ var urlsToCache = [
     "images/info.svg",
     "images/mail.svg",
     "images/medium.svg",
+    "images/memo.svg",
     "images/o.svg",
     "images/ok.svg",
     "images/puzzle.svg",
