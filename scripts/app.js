@@ -95,6 +95,7 @@
     var iTitle = $("iTitle");
     var iGame = $("iGame");
     var iInfoBody = $("iInfoBody");
+    var iClose = $("iClose");
 
     function fCheckGewonnen() {
         // Richtungen zum Prüfen auf Sieg: - | \ /
@@ -350,6 +351,7 @@
                 document.querySelectorAll("[data-row='" + rGewonnen[0] + "'][data-col='" + rGewonnen[1] + "'] > img")[0].classList.remove("svg-xo-dimmed");
                 document.querySelectorAll("[data-row='" + rGewonnen[0] + "'][data-col='" + rGewonnen[1] + "'] > img")[0].classList.add("svg-xo-highlight");
             });
+            $("iGameField").disabled = true;
             iPopupScore.getElementsByClassName("popup-content")[0].innerText = lLoc[nLang].player + " " + (nCurrentPlayer + 1) + " " + lLoc[nLang].won;
             iPopupScore.getElementsByClassName("popup-content")[1].innerText = lLoc[nLang].score + " " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
             iPopupScore.classList.remove("popup-init");
@@ -357,6 +359,7 @@
             iPopupScore.classList.add("popup-show-slow");
         } else if (lGame.findIndex((x) => x.includes(undefined)) < 0) {
             fSetMessage(undefined, lLoc[nLang].draw);
+            $("iGameField").disabled = true;
             iPopupScore.getElementsByClassName("popup-content")[0].innerText = lLoc[nLang].draw2;
             iPopupScore.getElementsByClassName("popup-content")[1].innerText = lLoc[nLang].score + " " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
             iPopupScore.classList.remove("popup-init");
@@ -371,7 +374,7 @@
 
     // Click auf ein Panel
     function fClickPanel(event) {
-        if (event.target.nodeName === "DIV" && bWait === false) {
+        if (event.target.nodeName === "BUTTON" && bWait === false) {
             var nRow = event.target.getAttribute("data-row");
             var nCol = event.target.getAttribute("data-col");
             // Panel ist noch leer und Spiel läuft noch
@@ -398,6 +401,7 @@
                 lGame[nIndexRow][nIndexCol] = undefined;
             });
         });
+        $("iGameField").disabled = false;
         iPopupScore.classList.remove("popup-show-slow");
         iPopupScore.classList.remove("popup-show-draw");
         iPopupScore.classList.add("popup-hide");
@@ -430,11 +434,13 @@
 
     // Popup Info
     function fShowPopupInfo() {
+        $("iTitleField").disabled = true;
         iPopupInfo.classList.remove("popup-init");
         iPopupInfo.classList.remove("popup-hide");
         iPopupInfo.classList.add("popup-show");
     }
     function fHidePopupInfo() {
+        $("iTitleField").disabled = false;
         iPopupInfo.classList.remove("popup-show");
         iPopupInfo.classList.add("popup-hide");
     }
@@ -451,6 +457,83 @@
         }
     }
 
+    document.onkeydown = function (e) {
+        // mit Pfeiltasten navigieren
+        const lTitleElements = [$("iInfo"), $("i2Players"), $("iEasy"), $("iMedium"), $("iHard")];
+        const cEl = document.activeElement;
+        const nIndexEl = lTitleElements.indexOf(cEl);
+        const nRow = parseInt(cEl.getAttribute("data-row"));
+        const nCol = parseInt(cEl.getAttribute("data-col"));
+
+        if ((e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "ArrowLeft" || e.key === "ArrowRight") &&cEl === document.getElementsByTagName("BODY")[0]) {
+            if (iPopupInfo.classList.contains("popup-show")) {
+                $("iInfoClose").focus();
+            } else if (iPopupScore.classList.contains("popup-show") || iPopupScore.classList.contains("popup-show-slow") || iPopupScore.classList.contains("popup-show-draw")) {
+                $("iOK").focus();
+            } if (iGame.classList.contains("swipe-in")) {
+                iClose.focus();
+            } else {
+                lTitleElements[0].focus();
+            }
+            return;
+        }
+
+        switch (e.key) {
+            case "ArrowUp":
+                if (nIndexEl > 0) {
+                    lTitleElements[lTitleElements.indexOf(cEl) - 1].focus();
+                }
+                if (nRow > 0) {
+                    document.querySelectorAll("[data-row='" + (nRow - 1) + "'][data-col='" + nCol + "']")[0].focus();
+                }
+                if (nRow === 0) {
+                    iClose.focus();
+                }
+                break;
+            case "ArrowDown":
+                if (nIndexEl > -1 && nIndexEl < lTitleElements.length - 1) {
+                    lTitleElements[lTitleElements.indexOf(cEl) + 1].focus();
+                }
+                if (nRow < 2) {
+                    document.querySelectorAll("[data-row='" + (nRow + 1) + "'][data-col='" + nCol + "']")[0].focus();
+                }
+                if (cEl === iClose) {
+                    document.querySelectorAll("[data-row='0'][data-col='2']")[0].focus();
+                }
+                break;
+            case "ArrowLeft":
+                if (nIndexEl > 0) {
+                    lTitleElements[lTitleElements.indexOf(cEl) - 1].focus();
+                }
+                if (nCol > 0) {
+                    document.querySelectorAll("[data-row='" + (nRow) + "'][data-col='" + (nCol - 1) + "']")[0].focus();
+                }
+                if (nRow === 0 && nCol === 0) {
+                    iClose.focus();
+                }
+                break;
+            case "ArrowRight":
+                if (nIndexEl > -1 && nIndexEl < lTitleElements.length - 1) {
+                    lTitleElements[lTitleElements.indexOf(cEl) + 1].focus();
+                }
+                if (nCol < 2) {
+                    document.querySelectorAll("[data-row='" + (nRow) + "'][data-col='" + (nCol + 1) + "']")[0].focus();
+                }
+                if (cEl === iClose) {
+                    document.querySelectorAll("[data-row='0'][data-col='0']")[0].focus();
+                }
+                break;
+            case "Escape":
+                if (iPopupInfo.classList.contains("popup-show")) {
+                    fHidePopupInfo();
+                } else if (iPopupScore.classList.contains("popup-show") || iPopupScore.classList.contains("popup-show-slow") || iPopupScore.classList.contains("popup-show-draw")) {
+                    fResetGame();
+                } else if (iGame.classList.contains("swipe-in")) {
+                    fQuitGame();
+                }
+        }
+    };
+
     function fInit() {
         // Localize
         // Example usage - https://grrd01.github.io/TicTacToe/?lang=en
@@ -463,10 +546,10 @@
         if (nLang) {
             document.documentElement.setAttribute("lang", cLang);
         }
-        $("i2Players").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].players.replace(/\s/g, "\u00a0");
-        $("iEasy").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].easy;
-        $("iMedium").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].medium;
-        $("iHard").getElementsByTagName("div")[0].innerHTML = lLoc[nLang].hard;
+        $("i2Players").getElementsByTagName("span")[0].innerHTML = lLoc[nLang].players.replace(/\s/g, "\u00a0");
+        $("iEasy").getElementsByTagName("span")[0].innerHTML = lLoc[nLang].easy;
+        $("iMedium").getElementsByTagName("span")[0].innerHTML = lLoc[nLang].medium;
+        $("iHard").getElementsByTagName("span")[0].innerHTML = lLoc[nLang].hard;
         iInfoBody.getElementsByTagName("p")[0].innerHTML = lLoc[nLang].instr;
         iInfoBody.getElementsByTagName("p")[1].innerHTML = lLoc[nLang].dev;
         $("iPuzzle").innerHTML = lLoc[nLang].puzzle;
@@ -486,7 +569,7 @@
         // Spielfeld mit Panels füllen
         lGame.forEach(function (rRow, nIndexRow) {
             rRow.forEach(function (ignore, nIndexCol) {
-                eDiv = document.createElement("div");
+                eDiv = document.createElement("button");
                 eDiv.className = "grid-item";
                 eDiv.setAttribute("data-row", nIndexRow.toString());
                 eDiv.setAttribute("data-col", nIndexCol.toString());
@@ -500,7 +583,7 @@
         Array.from(document.getElementsByClassName("list-button")).forEach(function (rButton) {
             rButton.addEventListener("click", fStartGame);
         });
-        $("iClose").addEventListener("click", fQuitGame);
+        iClose.addEventListener("click", fQuitGame);
         Array.from(lPanel).forEach(function (rPanel) {
             rPanel.addEventListener("click", fClickPanel);
         });

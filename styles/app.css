@@ -25,6 +25,12 @@ body {
     background: linear-gradient(#444, #222);
 }
 
+fieldset {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
 .content {
     margin: 5px;
 }
@@ -156,11 +162,11 @@ nav {
     background-color: #111;
 }
 .grid-item {
-    height: calc(33vmin - 18px);
+    height: calc(33vmin - 16px);
     border-radius: 2vmin;
     background-image: linear-gradient(#444,#2d2d2d), linear-gradient(#999, #444 2vmin, #111 100%);
 }
-.grid-item:hover, .list-button:hover, .mini-button:hover, .close-button:hover {
+.grid-item:hover, .list-button:hover, .mini-button:hover, .close-button:hover, .grid-item:focus, .list-button:focus, .mini-button:focus, .close-button:focus {
     background-image: linear-gradient(#555555, #383838), linear-gradient(#ccc, #555 10px, #222 100%);
 }
 .grid-item:active, .list-button:active, .mini-button:active, .close-button:active {
@@ -393,6 +399,19 @@ nav {
     height: 40px;
 }
 
+button {
+    color: white;
+    font-size: large;
+}
+
+button > span {
+    display: block;
+}
+
+button:focus {
+    outline: none;
+}
+
 .button {
     float: right;
     border: 1px transparent;
@@ -403,48 +422,55 @@ nav {
     background-origin: border-box;
     background-clip: content-box, border-box;
     padding: 1px;
-    height: 40px;
-    width: 100px;
+    height: 42px;
+    width: 102px;
     margin: 5px;
     cursor: pointer;
     text-align: center;
     font-weight: bold;
 }
-.button:hover {
+.button:hover, .button:focus {
     background-image: linear-gradient(#ff2162, #931120), linear-gradient(#ffcacc, #f34a43 12px, #65111a 100%);
 }
 .button:active {
     background-image: linear-gradient(#830110, #de0139), linear-gradient(#55010a, #e33a33 calc(100% - 12px), #ffbabc 100%);;
 }
 .button-span {
-    margin-top: 8px;
+    margin-top: -2px;
 }
 .button-span:active {
-    margin-top: 10px;
+    margin-top: 0;
 }
 .button-span > img {
+    height: 21px;
+    width: 21px;
     margin-bottom: -3px;
 }
 .mini-button {
     border-radius: 10px;
-    width: 60px;
-    height: 40px;
+    width: 62px;
+    height: 42px;
     float: right;
 }
 .mini-buttonlist {
     height: 60px;
 }
 .mini-img {
+    height: 30px;
+    width: 30px;
     margin: 5px 15px 5px 15px;
     max-height: calc(100% - 10px);
 }
 .close-button {
-    border-radius: 20px;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     position: absolute;
     top: 5px;
     right: 5px;
+}
+.close-button > img {
+    height: 20px;
+    width: 20px;
 }
 .text-img {
     height: 20px;
@@ -459,7 +485,7 @@ a:link {
 a:visited {
     color: #de0139;
 }
-a:hover {
+a:hover, a:focus {
     color: #ff2162;
 }
 a:active {
@@ -486,7 +512,7 @@ table {
 @media (orientation: landscape) {
     .list-button {
         display: inline-block;
-        width: calc(25vw - 6.5px);
+        width: calc(25vw - 6px);
         text-align: center;
         padding: 1px 0 1px 0;
         margin-left: 1px;
@@ -502,7 +528,7 @@ table {
         border-bottom-right-radius: 10px;
         padding: 1px 1px 1px 0;
     }
-    .list-button > div {
+    .list-button > span {
         margin-top: 20px;
         margin-bottom: 20px;
         pointer-events: none;
@@ -518,7 +544,7 @@ table {
     .list-button:active > .button-img {
         margin-top: 22px;
     }
-    .list-button:active > div {
+    .list-button:active > span {
         margin-bottom: 18px;
     }
 }
@@ -532,6 +558,7 @@ table {
         padding: 1px 0 1px 0;
         display: flex;
         align-items: center;
+        width: 100%;
     }
     .list-button:first-child {
         border-top-left-radius: 10px;
@@ -542,7 +569,7 @@ table {
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
     }
-    .list-button > div {
+    .list-button > span {
         display: inline;
         pointer-events: none;
     }
@@ -555,7 +582,7 @@ table {
         margin-top: 22px;
         margin-bottom: 18px;
     }
-    .list-button:active > div {
+    .list-button:active > span {
         padding-top: 4px;
     }
 }
