@@ -459,78 +459,95 @@
 
     document.onkeydown = function (e) {
         // mit Pfeiltasten navigieren
-        const lTitleElements = [$("iInfo"), $("i2Players"), $("iEasy"), $("iMedium"), $("iHard")];
         const cEl = document.activeElement;
-        const nIndexEl = lTitleElements.indexOf(cEl);
-        const nRow = parseInt(cEl.getAttribute("data-row"));
-        const nCol = parseInt(cEl.getAttribute("data-col"));
 
-        if ((e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "ArrowLeft" || e.key === "ArrowRight") &&cEl === document.getElementsByTagName("BODY")[0]) {
-            if (iPopupInfo.classList.contains("popup-show")) {
-                $("iInfoClose").focus();
-            } else if (iPopupScore.classList.contains("popup-show") || iPopupScore.classList.contains("popup-show-slow") || iPopupScore.classList.contains("popup-show-draw")) {
-                $("iOK").focus();
-            } if (iGame.classList.contains("swipe-in")) {
-                iClose.focus();
-            } else {
-                lTitleElements[0].focus();
-            }
-            return;
-        }
+        let lElements;
+        let nIndexEl;
 
-        switch (e.key) {
-            case "ArrowUp":
-                if (nIndexEl > 0) {
-                    lTitleElements[lTitleElements.indexOf(cEl) - 1].focus();
-                }
-                if (nRow > 0) {
-                    document.querySelectorAll("[data-row='" + (nRow - 1) + "'][data-col='" + nCol + "']")[0].focus();
-                }
-                if (nRow === 0) {
-                    iClose.focus();
-                }
-                break;
-            case "ArrowDown":
-                if (nIndexEl > -1 && nIndexEl < lTitleElements.length - 1) {
-                    lTitleElements[lTitleElements.indexOf(cEl) + 1].focus();
-                }
-                if (nRow < 2) {
-                    document.querySelectorAll("[data-row='" + (nRow + 1) + "'][data-col='" + nCol + "']")[0].focus();
-                }
-                if (cEl === iClose) {
-                    document.querySelectorAll("[data-row='0'][data-col='2']")[0].focus();
-                }
-                break;
-            case "ArrowLeft":
-                if (nIndexEl > 0) {
-                    lTitleElements[lTitleElements.indexOf(cEl) - 1].focus();
-                }
-                if (nCol > 0) {
-                    document.querySelectorAll("[data-row='" + (nRow) + "'][data-col='" + (nCol - 1) + "']")[0].focus();
-                }
-                if (nRow === 0 && nCol === 0) {
-                    iClose.focus();
-                }
-                break;
-            case "ArrowRight":
-                if (nIndexEl > -1 && nIndexEl < lTitleElements.length - 1) {
-                    lTitleElements[lTitleElements.indexOf(cEl) + 1].focus();
-                }
-                if (nCol < 2) {
-                    document.querySelectorAll("[data-row='" + (nRow) + "'][data-col='" + (nCol + 1) + "']")[0].focus();
-                }
-                if (cEl === iClose) {
-                    document.querySelectorAll("[data-row='0'][data-col='0']")[0].focus();
-                }
-                break;
-            case "Escape":
-                if (iPopupInfo.classList.contains("popup-show")) {
+        if (iPopupInfo.classList.contains("popup-show")) {
+            // im Info-Popup
+            switch (e.key) {
+                case "ArrowUp":
+                case "ArrowLeft":
+                case "ArrowDown":
+                case "ArrowRight":
+                    $("iInfoClose").focus();
+                    break;
+                case "Escape":
                     fHidePopupInfo();
-                } else if (iPopupScore.classList.contains("popup-show") || iPopupScore.classList.contains("popup-show-slow") || iPopupScore.classList.contains("popup-show-draw")) {
+            }
+        } else if (iPopupScore.classList.contains("popup-show") || iPopupScore.classList.contains("popup-show-slow") || iPopupScore.classList.contains("popup-show-draw")) {
+            // im Score-Popup
+            switch (e.key) {
+                case "ArrowUp":
+                case "ArrowLeft":
+                case "ArrowDown":
+                case "ArrowRight":
+                    $("iOK").focus();
+                    break;
+                case "Escape":
                     fResetGame();
-                } else if (iGame.classList.contains("swipe-in")) {
+            }
+        } else if (iGame.classList.contains("swipe-in")) {
+            // im Game
+            const nRow = parseInt(cEl.getAttribute("data-row"));
+            const nCol = parseInt(cEl.getAttribute("data-col"));
+            switch (e.key) {
+                case "ArrowUp":
+                    if (nRow > 0) {
+                        document.querySelectorAll("[data-row='" + (nRow - 1) + "'][data-col='" + nCol + "']")[0].focus();
+                    } else if (nRow === 0) {
+                        iClose.focus();
+                    }
+                    break;
+                case "ArrowLeft":
+                    if (nCol > 0) {
+                        document.querySelectorAll("[data-row='" + (nRow) + "'][data-col='" + (nCol - 1) + "']")[0].focus();
+                    } else if (cEl === iClose) {
+                        document.querySelectorAll("[data-row='0'][data-col='2']")[0].focus();
+                    } else if (nRow === 0 && nCol === 0) {
+                        iClose.focus();
+                    }
+                    break;
+                case "ArrowDown":
+                    if (nRow < 2) {
+                        document.querySelectorAll("[data-row='" + (nRow + 1) + "'][data-col='" + nCol + "']")[0].focus();
+                    } else if (cEl === iClose) {
+                        document.querySelectorAll("[data-row='0'][data-col='2']")[0].focus();
+                    } else if (nRow !== 2) {
+                        iClose.focus();
+                    }
+                    break;
+                case "ArrowRight":
+                    if (nCol < 2) {
+                        document.querySelectorAll("[data-row='" + (nRow) + "'][data-col='" + (nCol + 1) + "']")[0].focus();
+                    } else if (cEl === iClose) {
+                        document.querySelectorAll("[data-row='0'][data-col='0']")[0].focus();
+                    } else if (!(nCol === 2 && nRow > 0)) {
+                        iClose.focus();
+                    }
+                    break;
+                case "Escape":
                     fQuitGame();
-                }
+            }
+
+        } else {
+            // auf Titel-Screen
+            lElements = [$("iInfo"), $("i2Players"), $("iEasy"), $("iMedium"), $("iHard")];
+            nIndexEl = lElements.indexOf(cEl);
+            switch (e.key) {
+                case "ArrowUp":
+                case "ArrowLeft":
+                    if (nIndexEl > 0) {
+                        lElements[nIndexEl - 1].focus();
+                    }
+                    break;
+                case "ArrowDown":
+                case "ArrowRight":
+                    if (nIndexEl < lElements.length - 1) {
+                        lElements[nIndexEl + 1].focus();
+                    }
+            }
         }
     };
 
