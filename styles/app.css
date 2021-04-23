@@ -156,6 +156,7 @@ fieldset {
     margin: 5px;
 }
 nav {
+    display: flex;
     margin: 5px;
     border-radius:10px;
     box-shadow: 0 0 0.5vmin 2px #111;
@@ -510,6 +511,9 @@ table {
 }
 
 @media (orientation: landscape) {
+    nav {
+        flex-direction: row;
+    }
     .list-button {
         display: inline-block;
         width: calc(25vw - 6px);
@@ -538,9 +542,6 @@ table {
         margin-top: 20px;
         pointer-events: none;
     }
-    nav {
-        display: flex;
-    }
     .list-button:active > .button-img {
         margin-top: 22px;
     }
@@ -550,6 +551,9 @@ table {
 }
 
 @media (orientation: portrait) {
+    nav {
+        flex-direction: column;
+    }
     .grid-container {
         margin-top: 40px;
     }
@@ -558,7 +562,6 @@ table {
         padding: 1px 0 1px 0;
         display: flex;
         align-items: center;
-        width: 100%;
     }
     .list-button:first-child {
         border-top-left-radius: 10px;
