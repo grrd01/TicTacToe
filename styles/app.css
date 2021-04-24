@@ -402,11 +402,12 @@ nav {
 
 button {
     color: white;
-    font-size: large;
+    font-size: 0;
 }
 
 button > span {
     display: block;
+    font-size: large;
 }
 
 button:focus {
