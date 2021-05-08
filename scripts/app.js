@@ -352,6 +352,8 @@
                 document.querySelectorAll("[data-row='" + rGewonnen[0] + "'][data-col='" + rGewonnen[1] + "'] > img")[0].classList.add("svg-xo-highlight");
             });
             $("iGameField").disabled = true;
+            // Fix for Firefox OnKeydown
+            document.activeElement.blur();
             iPopupScore.getElementsByClassName("popup-content")[0].innerText = lLoc[nLang].player + " " + (nCurrentPlayer + 1) + " " + lLoc[nLang].won;
             iPopupScore.getElementsByClassName("popup-content")[1].innerText = lLoc[nLang].score + " " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
             iPopupScore.classList.remove("popup-init");
@@ -360,6 +362,8 @@
         } else if (lGame.findIndex((x) => x.includes(undefined)) < 0) {
             fSetMessage(undefined, lLoc[nLang].draw);
             $("iGameField").disabled = true;
+            // Fix for Firefox OnKeydown
+            document.activeElement.blur();
             iPopupScore.getElementsByClassName("popup-content")[0].innerText = lLoc[nLang].draw2;
             iPopupScore.getElementsByClassName("popup-content")[1].innerText = lLoc[nLang].score + " " + lAnzGewonnen[0] + " : " + lAnzGewonnen[1];
             iPopupScore.classList.remove("popup-init");
