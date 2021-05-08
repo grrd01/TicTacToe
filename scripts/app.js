@@ -435,6 +435,8 @@
     // Popup Info
     function fShowPopupInfo() {
         $("iTitleField").disabled = true;
+        // Fix for Firefox OnKeydown
+        document.activeElement.blur();
         iPopupInfo.classList.remove("popup-init");
         iPopupInfo.classList.remove("popup-hide");
         iPopupInfo.classList.add("popup-show");
@@ -475,6 +477,7 @@
                     break;
                 case "Escape":
                     fHidePopupInfo();
+                    break;
             }
         } else if (iPopupScore.classList.contains("popup-show") || iPopupScore.classList.contains("popup-show-slow") || iPopupScore.classList.contains("popup-show-draw")) {
             // im Score-Popup
@@ -487,6 +490,7 @@
                     break;
                 case "Escape":
                     fResetGame();
+                    break;
             }
         } else if (iGame.classList.contains("swipe-in")) {
             // im Game
@@ -529,6 +533,7 @@
                     break;
                 case "Escape":
                     fQuitGame();
+                    break;
             }
 
         } else {
@@ -547,6 +552,7 @@
                     if (nIndexEl < lElements.length - 1) {
                         lElements[nIndexEl + 1].focus();
                     }
+                    break;
             }
         }
     };
