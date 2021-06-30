@@ -440,8 +440,8 @@ button:focus {
 .button-span {
     margin-top: -2px;
 }
-.button-span:active {
-    margin-top: 0;
+.button:active > .button-span {
+    margin-top: 3px;
 }
 .button-span > img {
     height: 21px;
