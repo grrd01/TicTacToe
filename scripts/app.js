@@ -96,6 +96,7 @@
     var iGame = $("iGame");
     var iInfoBody = $("iInfoBody");
     var iClose = $("iClose");
+    var iOK = $("iOK");
 
     function fCheckGewonnen() {
         // Richtungen zum Prüfen auf Sieg: - | \ /
@@ -490,7 +491,7 @@
                 case "ArrowLeft":
                 case "ArrowDown":
                 case "ArrowRight":
-                    $("iOK").focus();
+                    iOK.focus();
                     break;
                 case "Escape":
                     fResetGame();
@@ -607,6 +608,11 @@
         // Click-Handler auf die Buttons & Panels legen
         $("iInfo").addEventListener("click", fShowPopupInfo);
         $("iInfoClose").addEventListener("click", fHidePopupInfo);
+        iPopupInfo.addEventListener("click", function (e) {
+            if (e.target === iPopupInfo) {
+                fHidePopupInfo();
+            }
+        });
         Array.from(document.getElementsByClassName("list-button")).forEach(function (rButton) {
             rButton.addEventListener("click", fStartGame);
         });
@@ -614,7 +620,12 @@
         Array.from(lPanel).forEach(function (rPanel) {
             rPanel.addEventListener("click", fClickPanel);
         });
-        $("iOK").addEventListener("click", fResetGame);
+        iOK.addEventListener("click", fResetGame);
+        iPopupScore.addEventListener("click", function (e) {
+            if (e.target === iPopupScore) {
+                fResetGame();
+            }
+        });
     }
 
     fInit();
