@@ -39,9 +39,19 @@
   ],
   "screenshots": [
     {
-      "src": "../images/screenshots/svg.png",
+      "src": "../images/screenshots/s1.png",
       "type": "image/png",
-      "sizes": "1280x800"
+      "sizes": "1439x2881"
+    },
+    {
+      "src": "../images/screenshots/s2.png",
+      "type": "image/png",
+      "sizes": "1439x2881"
+    },
+    {
+      "src": "../images/screenshots/s3.png",
+      "type": "image/png",
+      "sizes": "1439x2881"
     }
   ],
   "categories": ["games", "logic games", "casual games", "family games"],
