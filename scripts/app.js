@@ -13,7 +13,7 @@
     "use strict";
 
     // Localization
-    var nLang = 0;
+    let nLang = 0;
     const lLoc = [{
         desc: "grrd's Tic Tac Toe is a HTML5 Game that works offline",
         players: "2 Players",
@@ -70,38 +70,38 @@
     // Spielfeld
     const nRows = 3;
     const nCols = 3;
-    //var lGame = new Array(nRows).fill(undefined).map(row => new Array(nCols).fill(undefined));
-    var lGame = Array.from(new Array(nRows), () => new Array(nCols).fill(undefined));
+    //let lGame = new Array(nRows).fill(undefined).map(row => new Array(nCols).fill(undefined));
+    let lGame = Array.from(new Array(nRows), () => new Array(nCols).fill(undefined));
 
     // HTML-Elemente
     const lPanel = document.getElementsByClassName("grid-item");
-    var eDiv;
-    var eImg;
+    let eDiv;
+    let eImg;
 
     // aktueller Spieler
-    var nCurrentPlayer = 0;
-    var nStartPlayer = 0;
-    var lPlayers = ["human", "human"];
-    var lImages = ["x.svg", "o.svg"];
-    var lGewonnen;
-    var lAnzGewonnen = [0, 0];
-    var bWait = false;
+    let nCurrentPlayer = 0;
+    let nStartPlayer = 0;
+    let lPlayers = ["human", "human"];
+    let lImages = ["x.svg", "o.svg"];
+    let lGewonnen;
+    let lAnzGewonnen = [0, 0];
+    let bWait = false;
 
-    var $ = function (id) {
+    let $ = function (id) {
         return document.getElementById(id);
     };
-    var iPopupInfo = $("iPopupInfo");
-    var iPopupScore = $("iPopupScore");
-    var iTitle = $("iTitle");
-    var iGame = $("iGame");
-    var iInfoBody = $("iInfoBody");
-    var iClose = $("iClose");
-    var iOK = $("iOK");
+    let iPopupInfo = $("iPopupInfo");
+    let iPopupScore = $("iPopupScore");
+    let iTitle = $("iTitle");
+    let iGame = $("iGame");
+    let iInfoBody = $("iInfoBody");
+    let iClose = $("iClose");
+    let iOK = $("iOK");
 
     function fCheckGewonnen() {
         // Richtungen zum Prüfen auf Sieg: - | \ /
         const lDirections = [[1, 0], [0, 1], [1, 1], [1, -1]];
-        var bGewonnen = false;
+        let bGewonnen = false;
         lGewonnen = [];
 
         lGame.forEach(function (rRow, nIndexRow) {
@@ -127,9 +127,9 @@
 
     // Wohin spielen?
     function fAIscore() {
-        var lScore = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
-        var lSet;
-        var nScore;
+        let lScore = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+        let lSet;
+        let nScore;
         const lDrei = [0, 1, 2];
 
         nScore = 0;
@@ -187,20 +187,20 @@
 
     // Wohin spielen?
     function fAI() {
-        var rHighScore = {nScore: -1, nRow: undefined, nCol: undefined};
-        var lHighScore = [];
-        var nRandom;
-        var nBest;
-        var nSecond;
-        var nAnzBest;
-        var nAnzSecond;
-        var nPlay;
-        var lUsed = [];
+        let rHighScore = {nScore: -1, nRow: undefined, nCol: undefined};
+        let lHighScore = [];
+        let nRandom;
+        let nBest;
+        let nSecond;
+        let nAnzBest;
+        let nAnzSecond;
+        let nPlay;
+        let lUsed = [];
         // Wert der Felder für aktuellen Spieler ermitteln
-        var lScore = fAIscore();
+        let lScore = fAIscore();
         // Wert der Felder für Gegner ermitteln, dort spielen, falls höher als eigener Wert
         nCurrentPlayer = 1 - nCurrentPlayer;
-        var lScoreOpponent = fAIscore();
+        let lScoreOpponent = fAIscore();
         nCurrentPlayer = 1 - nCurrentPlayer;
         // besetzte felder zählen
         lGame.forEach(function (rRow, nIndexRow) {
@@ -258,7 +258,7 @@
             lScoreOpponent[2][1] = 0;
         }
         // Rangliste der Möglichkeiten erstellen
-        var nMyHighScore = 0;
+        let nMyHighScore = 0;
         lScore.forEach(function (lScoreRow) {
             lScoreRow.forEach(function (nScoreCol) {
                 if (nScoreCol > nMyHighScore) {
@@ -290,12 +290,12 @@
             setTimeout(function () {
                 bWait = false;
                 if (lPlayers[nCurrentPlayer] === "easy") {
-                    // 1 zu 100%
+                    // 1 zu 100 %
                     nRandom = 1;
                     nRandom = Math.min(nRandom, lHighScore.length - 1);
                 }
                 if (lPlayers[nCurrentPlayer] === "medium") {
-                    // 0 oder 1 zu 66% / 33%
+                    // 0 oder 1 zu 66 % / 33 %
                     nRandom = Math.floor(Math.random() * 3);
                     if (nRandom > 1) {
                         nRandom -= 1;
@@ -326,7 +326,7 @@
 
     // Nachricht über Spiel-Grid setzen
     function fSetMessage(nPlayer, cMsg) {
-        var eMessage = $("iMessage");
+        let eMessage = $("iMessage");
         while (eMessage.firstChild) {
             eMessage.removeChild(eMessage.firstChild);
         }
@@ -380,8 +380,8 @@
     // Click auf ein Panel
     function fClickPanel(event) {
         if (event.target.nodeName === "BUTTON" && bWait === false) {
-            var nRow = event.target.getAttribute("data-row");
-            var nCol = event.target.getAttribute("data-col");
+            let nRow = event.target.getAttribute("data-row");
+            let nCol = event.target.getAttribute("data-col");
             // Panel ist noch leer und Spiel läuft noch
             if (lGame[nRow][nCol] === undefined && !fCheckGewonnen()) {
                 lGame[nRow][nCol] = nCurrentPlayer;
@@ -454,9 +454,9 @@
 
     function urlQuery(query) {
         query = query.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-        var expr = "[\\?&]" + query + "=([^&#]*)";
-        var regex = new RegExp(expr);
-        var results = regex.exec(window.location.href);
+        let expr = "[\\?&]" + query + "=([^&#]*)";
+        let regex = new RegExp(expr);
+        let results = regex.exec(window.location.href);
         if (results !== null) {
             return results[1];
         } else {
@@ -565,7 +565,7 @@
     function fInit() {
         // Localize
         // Example usage - https://grrd01.github.io/TicTacToe/?lang=en
-        const cLang = (urlQuery("lang") || navigator.language || navigator.browserLanguage || (navigator.languages || ["en"])[0]).substring(0, 2).toLowerCase();
+        const cLang = (urlQuery("lang") || navigator.language || (navigator.languages || ["en"])[0]).substring(0, 2).toLowerCase();
         if (cLang === "de") {
             nLang = 1;
         } else if (cLang === "fr") {

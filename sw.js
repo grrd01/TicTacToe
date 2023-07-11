@@ -9,11 +9,11 @@
 
 /*jslint devel: true, browser: true, long: true */ /*global self fetch */
 
-var CACHE_NAME = "grrds-tictactoe-cache";
-var CACHE_VERSION = "v1.21";
-var CACHE = CACHE_NAME + "-" + CACHE_VERSION;
+const CACHE_NAME = "grrds-tictactoe-cache";
+const CACHE_VERSION = "v1.21";
+const CACHE = CACHE_NAME + "-" + CACHE_VERSION;
 
-var urlsToCache = [
+const urlsToCache = [
     "index.html",
     "images/2online.svg",
     "images/2player.svg",
@@ -63,7 +63,7 @@ self.addEventListener("fetch", function (event) {
             // can only be consumed once. Since we are consuming this
             // once by cache and once by the browser for fetch, we need
             // to clone the response.
-            var fetchRequest = event.request.clone();
+            let fetchRequest = event.request.clone();
 
             return fetch(fetchRequest).then(
                 function (response) {
@@ -75,8 +75,8 @@ self.addEventListener("fetch", function (event) {
                     // IMPORTANT: Clone the response. A response is a stream
                     // and because we want the browser to consume the response
                     // as well as the cache consuming the response, we need
-                    // to clone it so we have two streams.
-                    var responseToCache = response.clone();
+                    // to clone it, so we have two streams.
+                    let responseToCache = response.clone();
 
                     caches.open(CACHE).then(function (cache) {
                         cache.put(event.request, responseToCache);
