@@ -3,7 +3,7 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        // terser scripts/app.js -o ../../2_Build/TicTacToe/scripts/app.js -c -m --comments
+        // terser scripts/app.js -o dist/scripts/app.js -c -m --comments
         terser: {
             one: {
                 options: {
@@ -14,7 +14,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    '../../2_Build/TicTacToe/scripts/app.js': ['scripts/app.js']
+                    'dist/scripts/app.js': ['scripts/app.js']
                 }
             },
             two: {
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    '../../2_Build/TicTacToe/sw.js': ['sw.js']
+                    'dist/sw.js': ['sw.js']
                 }
             }
         },
@@ -39,26 +39,26 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: [
-                    {'../../2_Build/TicTacToe/images/2online.svg': 'images/2online.svg'},
-                    {'../../2_Build/TicTacToe/images/2player.svg': 'images/2player.svg'},
-                    {'../../2_Build/TicTacToe/images/4inarow.svg': 'images/4inarow.svg'},
-                    {'../../2_Build/TicTacToe/images/dice.svg': 'images/dice.svg'},
-                    {'../../2_Build/TicTacToe/images/easy.svg': 'images/easy.svg'},
-                    {'../../2_Build/TicTacToe/images/hard.svg': 'images/hard.svg'},
-                    {'../../2_Build/TicTacToe/images/icon.svg': 'images/icon.svg'},
-                    {'../../2_Build/TicTacToe/images/info.svg': 'images/info.svg'},
-                    {'../../2_Build/TicTacToe/images/mail.svg': 'images/mail.svg'},
-                    {'../../2_Build/TicTacToe/images/medium.svg': 'images/medium.svg'},
-                    {'../../2_Build/TicTacToe/images/memo.svg': 'images/memo.svg'},
-                    {'../../2_Build/TicTacToe/images/o.svg': 'images/o.svg'},
-                    {'../../2_Build/TicTacToe/images/ok.svg': 'images/ok.svg'},
-                    {'../../2_Build/TicTacToe/images/puzzle.svg': 'images/puzzle.svg'},
-                    {'../../2_Build/TicTacToe/images/reversi.svg': 'images/reversi.svg'},
-                    {'../../2_Build/TicTacToe/images/ttt1.svg': 'images/ttt1.svg'},
-                    {'../../2_Build/TicTacToe/images/ttt2.svg': 'images/ttt2.svg'},
-                    {'../../2_Build/TicTacToe/images/ttt3.svg': 'images/ttt3.svg'},
-                    {'../../2_Build/TicTacToe/images/ttt4.svg': 'images/ttt4.svg'},
-                    {'../../2_Build/TicTacToe/images/x.svg': 'images/x.svg'}
+                    {'dist/images/2online.svg': 'images/2online.svg'},
+                    {'dist/images/2player.svg': 'images/2player.svg'},
+                    {'dist/images/4inarow.svg': 'images/4inarow.svg'},
+                    {'dist/images/dice.svg': 'images/dice.svg'},
+                    {'dist/images/easy.svg': 'images/easy.svg'},
+                    {'dist/images/hard.svg': 'images/hard.svg'},
+                    {'dist/images/icon.svg': 'images/icon.svg'},
+                    {'dist/images/info.svg': 'images/info.svg'},
+                    {'dist/images/mail.svg': 'images/mail.svg'},
+                    {'dist/images/medium.svg': 'images/medium.svg'},
+                    {'dist/images/memo.svg': 'images/memo.svg'},
+                    {'dist/images/o.svg': 'images/o.svg'},
+                    {'dist/images/ok.svg': 'images/ok.svg'},
+                    {'dist/images/puzzle.svg': 'images/puzzle.svg'},
+                    {'dist/images/reversi.svg': 'images/reversi.svg'},
+                    {'dist/images/ttt1.svg': 'images/ttt1.svg'},
+                    {'dist/images/ttt2.svg': 'images/ttt2.svg'},
+                    {'dist/images/ttt3.svg': 'images/ttt3.svg'},
+                    {'dist/images/ttt4.svg': 'images/ttt4.svg'},
+                    {'dist/images/x.svg': 'images/x.svg'}
                     ]
             }
         },
@@ -71,7 +71,7 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: 'images/',
                     src: ['**/*.{png,jpg,gif}'],
-                    dest: '../../2_Build/TicTacToe/images'
+                    dest: 'dist/images'
                 }]
             }
         },
@@ -81,7 +81,7 @@ module.exports = function(grunt) {
                     banner: "/*\n* grrd's Tic Tac Toe\n* Copyright (c) 2018 Gerard Tyedmers, grrd@gmx.net\n* Licensed under the MPL-2.0 License\n*/\n"
                 },
                 files: {
-                    '../../2_Build/TicTacToe/styles/app.css': ['styles/app.css']
+                    'dist/styles/app.css': ['styles/app.css']
                 }
             }
         },
@@ -94,7 +94,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     src: 'index.html',
-                    dest: '../../2_Build/TicTacToe'
+                    dest: 'dist'
                 }]
             }
         },
@@ -111,17 +111,17 @@ module.exports = function(grunt) {
                     ]
                 },
                 files: [
-                    {expand: true, flatten: true, src: ['../../2_Build/TicTacToe/index.html'], dest: '../../2_Build/TicTacToe/'}
+                    {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist/'}
                 ]
             }
         },
         copy: {
             main: {
                 files: [
-                    {expand: true, flatten: true, src: ['manifest/*'], dest: '../../2_Build/TicTacToe/manifest/'},
-                    {expand: true, flatten: true, src: ['images/*.ico'], dest: '../../2_Build/TicTacToe/images/'},
-                    {expand: true, flatten: true, src: ['**.txt'], dest: '../../2_Build/TicTacToe/'},
-                    {expand: true, flatten: true, src: ['**.md'], dest: '../../2_Build/TicTacToe/'}
+                    {expand: true, flatten: true, src: ['manifest/*'], dest: 'dist/manifest/'},
+                    {expand: true, flatten: true, src: ['images/*.ico'], dest: 'dist/images/'},
+                    {expand: true, flatten: true, src: ['**.txt'], dest: 'dist/'},
+                    {expand: true, flatten: true, src: ['**.md'], dest: 'dist/'}
                 ]
             }
         }
