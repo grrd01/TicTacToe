@@ -10,7 +10,7 @@
 /*jslint devel: true, browser: true, long: true */ /*global self fetch */
 
 const CACHE_NAME = "grrds-tictactoe-cache";
-const CACHE_VERSION = "v1.21";
+const CACHE_VERSION = "v1.22";
 const CACHE = CACHE_NAME + "-" + CACHE_VERSION;
 
 const urlsToCache = [
